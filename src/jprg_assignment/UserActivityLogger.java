@@ -13,7 +13,7 @@ public class UserActivityLogger {
         logr.setUseParentHandlers(false);
         try {
             // Create FileHandler to log information into log files
-            FileHandler fh = new FileHandler("UserActivity.log", true);
+            FileHandler fh = new FileHandler("UserActivity.log", 1000000, 1, true);
             fh.setLevel(Level.FINE);
             logr.addHandler(fh);
             
