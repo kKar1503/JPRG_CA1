@@ -7,11 +7,9 @@ public class Student {
     private String name, course;
     private int adminNumber;
     private double gpa;
-    ArrayList<Module> studentModuleList = new ArrayList<>();
-    public static int numberOfStudents = 0;
+    private ArrayList<Module> studentModuleList = new ArrayList<>();
     
     public Student() {
-        numberOfStudents ++;
     }
     
     public Student (String name, String course, int adminNumber, ArrayList<Module> modules){
@@ -19,11 +17,6 @@ public class Student {
         this.course = course;
         this.adminNumber = adminNumber;
         this.studentModuleList = modules;
-        numberOfStudents ++;
-    }
-    
-    public static int getNumberOfStudents() {
-        return numberOfStudents;
     }
     
     public String getName() {
@@ -55,11 +48,6 @@ public class Student {
     }
     
     public String getGpa() {
-        this.calculateGpa();
-        return String.format("%.2f",this.gpa);
-    }
-    
-    public void calculateGpa() {
         double totalGradePoints = 0;
         int totalCreditUnits = 0;
         for (int i = 0; i < studentModuleList.size(); i++) {
@@ -77,8 +65,9 @@ public class Student {
             totalCreditUnits += studentModuleList.get(i).getCreditUnit();
         }
         this.gpa = totalGradePoints / totalCreditUnits;
+        return String.format("%.2f",this.gpa);
     }
-    
+        
     public String[] getModuleInfo() {
         String[] moduleInfo = new String[studentModuleList.size()];
         for (int i = 0; i < studentModuleList.size(); i++) {
