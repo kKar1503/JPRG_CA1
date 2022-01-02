@@ -17,8 +17,8 @@ public class StudentUser {
         String userInput;
         int intUserInput = 0;
         
-        do {
-            try {
+        try {
+            do {
                 // Initialize Mainpage
                 userInput = JOptionPane.showInputDialog(null,
                         "Enter your option:\n\n"
@@ -29,14 +29,14 @@ public class StudentUser {
                                 + "5.\tExit\n ",
                         "Mini Student System",
                         JOptionPane.QUESTION_MESSAGE);
-                if (!isInt(userInput)[0]) { 
+                if (!VerifyInput.isInt(userInput)[0]) { 
                     SoundPlayer.errorSound();
                     // Handles empty input
                     JOptionPane.showMessageDialog(null, 
                             "Missing input! Please enter in the range from 1 to 5.", 
                             "Error", 
                             JOptionPane.ERROR_MESSAGE);
-                } else if (!isInt(userInput)[1]) { 
+                } else if (!VerifyInput.isInt(userInput)[1]) { 
                     SoundPlayer.errorSound();
                     // Handles non-integer Input
                     JOptionPane.showMessageDialog(null, 
@@ -67,6 +67,7 @@ public class StudentUser {
                             StudentManagement.searchModule();
                             break;
                         case 4: 
+                            UserActivityLogger.infoLog("User accessed printStatistics.");
                             StudentManagement.printStatistics();
                             break;
                         case 5:
@@ -74,12 +75,11 @@ public class StudentUser {
                             break;
                     }
                 }
-            } catch (NullPointerException npe) {
-                // Handles user clicking cancel
-                UserActivityLogger.errLog("User selected cancel in Main Menu, terminating program", npe);
-                intUserInput = 5;
-            }
-        } while (intUserInput != 5);
+            } while (intUserInput != 5);
+        } catch (NullPointerException npe) {
+            // Handles user clicking cancel
+            UserActivityLogger.errLog("User selected cancel in Main Menu, terminating program", npe);
+        };
         
         // Good bye sound effect
         SoundPlayer.playSound("SoundEffects\\\\Bye.wav");
@@ -89,26 +89,5 @@ public class StudentUser {
                 "Program terminated.\nThank You!",
                 "Message",
                 JOptionPane.INFORMATION_MESSAGE);
-    }
-    
-    // Method to check if an userInput is numeric
-    private static boolean[] isInt(String strNum) {
-        // First array value indicates if there's input
-        // Second array value indicates if the input isInt
-        boolean[] returnBool = {false, false};
-        if (strNum.isEmpty()) {
-            UserActivityLogger.errLog("userInput is null.", new Throwable("Missing Input"));
-            return returnBool; // {false, false}
-        };
-        returnBool[0] = true;
-        try {
-            int i = Integer.parseInt(strNum);
-        } catch (NumberFormatException nfe) {
-            UserActivityLogger.errLog("userInput is not int.", nfe);
-            return returnBool; // {true, false}
-        }
-        returnBool[1] = true;
-        UserActivityLogger.infoLog("userInput verified as integer. User Input: " + strNum);
-        return returnBool; // {true, true}
     }
 }

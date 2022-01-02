@@ -18,8 +18,8 @@ public class StudentManagement {
         // Modules for Student 1
         Module m1 = new Module("ST0501", "FED", 5, 75.0);
         Module m2 = new Module("ST0502", "FOP", 6, 85.0);
-        Module m3 = new Module("ST2413", "FOC", 4, 70.0);
-        Module m4 = new Module("LC0860", "CAT", 2, 65.0);
+        Module m3 = new Module("ST2413", "FOC", 4, 77.0);
+        Module m4 = new Module("LC0860", "CAT", 2, 83.0);
         Module m5 = new Module("LC0855", "CPR", 2, 90.0);
         
         // Modules for Student 2
@@ -243,7 +243,90 @@ public class StudentManagement {
     }
     
     public static void printStatistics() {
-        
+        if (studentList.size() != 0) {
+            String userInput;
+            int intUserInput = 0, numGoodStudent = 0, numBadStudent = 0;
+            for (int i = 0; i < studentList.size(); i++) {
+                double studentGpa = Double.parseDouble(studentList.get(i).getGpa());
+                if (studentGpa > 3.5) {
+                    numGoodStudent ++;
+                } else if (studentGpa < 1) {
+                    numBadStudent ++;
+                } else {
+                    // Do Nothing
+                }
+                System.out.println(studentList.get(i).getGpa());
+            }
+            double percentGoodStudent = (double)numGoodStudent / studentList.size() * 100;
+            double percentBadStudent = (double)numBadStudent / studentList.size() * 100;
+            try {
+                JOptionPane.showMessageDialog(null, 
+                        "STATISTIC:\n"
+                                + "---------------------\n\n"
+                                + "There are " + studentList.size() + " students in total.\n\n"
+                                + "There is/are " + numGoodStudent + " student(s) "
+                                + "getting GPA greater than 3.5. This is "
+                                + String.format("%.2f", percentGoodStudent) + "%.\n\n"
+                                + "There is/are " + numBadStudent + " student(s) "
+                                + "getting GPA less than 1. This is "
+                                + String.format("%.2f", percentBadStudent) + "%.\n ",
+                        "Message",
+                        JOptionPane.INFORMATION_MESSAGE);
+                do {
+                    userInput = JOptionPane.showInputDialog(null,
+                            "Would you like to export the full student report into excel?\n\n"
+                                    + "\t1.\tConfirm\n"
+                                    + "\t2.\tCancel\n ",
+                            "Export Report",
+                            JOptionPane.QUESTION_MESSAGE);
+                    if (!VerifyInput.isInt(userInput)[0]) {
+                        SoundPlayer.errorSound();
+                        // Handles empty input
+                        JOptionPane.showMessageDialog(null, 
+                                "Missing Input! Please enter either 1 or 2.", 
+                                "Error", 
+                                JOptionPane.ERROR_MESSAGE);
+                    } else if (!VerifyInput.isInt(userInput)[1]) { 
+                        SoundPlayer.errorSound();
+                        // Handles non-integer Input
+                        JOptionPane.showMessageDialog(null, 
+                                "Invalid input! Please enter only numeric value.", 
+                                "Error", 
+                                JOptionPane.ERROR_MESSAGE);
+                    } else if (!(Integer.parseInt(userInput) == 1 || Integer.parseInt(userInput) == 2)) {
+                        SoundPlayer.errorSound();
+                        // Handles out of range input
+                        JOptionPane.showMessageDialog(null,
+                                "Invalid option! Please enter either 1 or 2.",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        // Handles input choices
+                        intUserInput = Integer.parseInt(userInput);
+                        switch(intUserInput) {
+                            case 1:
+                                ReportExport.generateReport(studentList);
+                                UserActivityLogger.infoLog("User exported full student report.");
+                                break;
+                            case 2:
+                                JOptionPane.showMessageDialog(null,
+                                        "Returning to main menu...");
+                                break;
+                        }
+                    }
+                } while (!(intUserInput == 1 || intUserInput == 2));
+            } catch (NullPointerException npe) {
+                // Handles user clicking cancel
+                UserActivityLogger.errLog("User selected cancel in printStatistic, returning to Main Menu", npe);
+            };
+        } else {
+            SoundPlayer.errorSound();
+            JOptionPane.showMessageDialog(null, 
+                    "There are no students in the system.\nNo statistic to generate.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            UserActivityLogger.errLog("No students found in system.", new Throwable("Missing Data"));
+        };
     }
     
     // Method returns Table in JScrollPane given row and col data
