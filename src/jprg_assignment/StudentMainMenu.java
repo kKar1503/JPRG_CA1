@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package jprg_assignment;
 
-/**
- *
- * @author ISoNi
- */
 public class StudentMainMenu extends javax.swing.JFrame {
 
     /**
@@ -16,6 +8,22 @@ public class StudentMainMenu extends javax.swing.JFrame {
      */
     public StudentMainMenu() {
         initComponents();
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                // Good bye sound effect
+                SoundPlayer.playSound("SoundEffects\\\\Bye.wav");
+                // Log Program termination
+                UserActivityLogger.infoLog("Program Terminated");
+                // Await Soundplayer duration
+                try {
+                    Thread.sleep(1200);
+                } catch (InterruptedException ex) {
+                    System.out.println(ex);
+                }
+                System.exit(0);
+            }
+        });
     }
 
     /**

@@ -8,6 +8,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         // Initialize hidden components
         lblWrongPW.setVisible(false);
+        setLocationRelativeTo(null);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -190,9 +191,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(panelBackgroundLayout.createSequentialGroup()
                 .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBackgroundLayout.createSequentialGroup()
-                            .addGap(0, 0, 0)
-                            .addComponent(lblDeveloper))
+                        .addComponent(lblDeveloper, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelBackgroundLayout.createSequentialGroup()
                             .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(panelBackgroundLayout.createSequentialGroup()

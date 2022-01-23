@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ObjectIO {
     // File lists
-    private static File credentialFile = new File("dat\\\\Credentials.dat");
+    final private static File CREDENTIAL_FILE = new File("dat\\\\Credentials.dat");
     
     public static void credentialSerialization(Credential credential) {
         // Import a list of existing credentials
@@ -28,7 +28,7 @@ public class ObjectIO {
             System.out.println("added");
             currentCredentials.add(credential);
             try (ObjectOutputStream outStream = new ObjectOutputStream(
-                        new FileOutputStream(credentialFile))){
+                        new FileOutputStream(CREDENTIAL_FILE))){
                 outStream.writeObject(currentCredentials);
                 outStream.close();
             } catch (IOException e) {
@@ -41,7 +41,7 @@ public class ObjectIO {
     
     public static ArrayList<Credential> credentialDeserialization() {
         try (ObjectInputStream inStream = new ObjectInputStream(
-                    new FileInputStream(credentialFile))){
+                    new FileInputStream(CREDENTIAL_FILE))){
             ArrayList<Credential> credentials = (ArrayList<Credential>)inStream.readObject();
             inStream.close();
             return credentials;
@@ -59,7 +59,7 @@ public class ObjectIO {
     public static void credentialChange(String username, String password, String name) {
         ArrayList<Credential> currentCredentials = credentialDeserialization();
         for (Credential credential: currentCredentials) {
-            if (credential.getUsername().equals(username)) {
+            if (credential.getUsername().equalsIgnoreCase(username)) {
                 if (password != null) {
                     credential.setPassword(password);
                 }
@@ -69,7 +69,7 @@ public class ObjectIO {
             }
         }
         try (ObjectOutputStream outStream = new ObjectOutputStream(
-                    new FileOutputStream(credentialFile))){
+                    new FileOutputStream(CREDENTIAL_FILE))){
             outStream.writeObject(currentCredentials);
             outStream.close();
         } catch (IOException e) {
