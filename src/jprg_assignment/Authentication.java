@@ -8,7 +8,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 
 public class Authentication {
-    private static ArrayList<Credential> credentialsList = new ArrayList<>();
+    private static ArrayList<Credential> credentialsList = null;
     
     public static Object[] authenticate(String username, String password) {
         // Return object[] for authentication
@@ -19,10 +19,13 @@ public class Authentication {
         // Boolean : Users' Access
         Object[] returnObject = {false, "", false, false};
         // Read and Store credentials temporarily in Credential ArrayList
-        readCredentials();
+        credentialsList = readCredentials();
+        if (credentialsList == null) {
+            credentialsList = new ArrayList<>();
+        }
         // Check username & password
         for (int i = 0; i < credentialsList.size() || returnObject.equals(false); i++) {
-            if (credentialsList.get(i).getUsername().equals(username) 
+            if (credentialsList.get(i).getUsername().equalsIgnoreCase(username) 
             && verifyPassword(password, 
                 credentialsList.get(i).getSalt(), 
                 credentialsList.get(i).getPassword())
@@ -37,11 +40,8 @@ public class Authentication {
         return returnObject;
     }
     
-    private static void readCredentials(){
-        credentialsList.add(new Credential("student", "stu1", "Student 1", false, false));
-        credentialsList.add(new Credential("classrep", "stu2", "Student 2", false, true));
-        credentialsList.add(new Credential("admin", "king", "Admin", true, true));
-        System.out.println("Credentials read!");
+    private static ArrayList<Credential> readCredentials(){
+        return ObjectIO.credentialDeserialization();
     }
     
     // Salt generator to return random salt for each password

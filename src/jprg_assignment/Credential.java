@@ -11,12 +11,13 @@ public class Credential implements Serializable{
     private boolean access;
     private byte[] salt;
     
-    public Credential(String username, String password, String name, boolean admin, boolean access) {
+    public Credential(String username, String password, String name, boolean admin, boolean access, byte[] salt) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.admin = admin;
         this.access = access;
+        this.salt = salt;
     }
 
     public String getUsername() {
