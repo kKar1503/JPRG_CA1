@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class StudentManagement {
     
@@ -57,7 +58,7 @@ public class StudentManagement {
         UserActivityLogger.infoLog("3 Default Students initialized");
     }
     
-    public static void displayAllStudents() {
+    public static DefaultTableModel displayAllStudents() {
         if (!studentList.isEmpty()) {
             // Initialize ArrayList to store all information for display
             ArrayList<Object[]> displayInfo = new ArrayList<>();
@@ -102,11 +103,16 @@ public class StudentManagement {
             };
 
             // Display all information generated using JOptionPane
-            JOptionPane.showMessageDialog(null, 
-                    generateTable(rows, cols), 
-                    "All Students", 
-                    JOptionPane.INFORMATION_MESSAGE);
             UserActivityLogger.infoLog("Displayed all students' data.");
+            DefaultTableModel tableModel = new DefaultTableModel(rows, cols) {
+                // Override isCellEditable to false
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            
+            return tableModel;
         } else {
             SoundPlayer.errorSound();
             JOptionPane.showMessageDialog(null, 
@@ -114,6 +120,7 @@ public class StudentManagement {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             UserActivityLogger.errLog("No students found in system.", new Throwable("Missing Data"));
+            return null;
         }
     }
     
@@ -383,7 +390,7 @@ public class StudentManagement {
         
         // Initialize JScrollPane
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(500,250));
+        scrollPane.setPreferredSize(new Dimension(975,495));
         return scrollPane;
     }
     

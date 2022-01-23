@@ -21,7 +21,7 @@ public class Login extends javax.swing.JFrame {
                 try {
                     Thread.sleep(1200);
                 } catch (InterruptedException ex) {
-                    System.out.println(ex);
+                    UserActivityLogger.errLog("Unable to sleep thread.", ex);
                 }
                 System.exit(0);
             }

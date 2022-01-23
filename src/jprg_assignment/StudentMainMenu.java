@@ -3,12 +3,12 @@ package jprg_assignment;
 
 public class StudentMainMenu extends javax.swing.JFrame {
     private Object[] studentObj;
-    /**
-     * Creates new form StudentMainMenu
-     */
+
     public StudentMainMenu(Object[] userObj) {
         initComponents();
         this.studentObj = userObj;
+        // Prevent table's column from being movable
+        tableDisplayInfo.getTableHeader().setReorderingAllowed(false);
         lblWelcome.setText("Welcome, " + userObj[1].toString() + "!");
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -21,7 +21,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 try {
                     Thread.sleep(1200);
                 } catch (InterruptedException ex) {
-                    System.out.println(ex);
+                    UserActivityLogger.errLog("Unable to sleep thread.", ex);
                 }
                 System.exit(0);
             }
@@ -37,6 +37,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroupSearch = new javax.swing.ButtonGroup();
         tabpaneMain = new javax.swing.JTabbedPane();
         panelWelcome = new javax.swing.JPanel();
         lblWelcome = new javax.swing.JLabel();
@@ -44,8 +45,21 @@ public class StudentMainMenu extends javax.swing.JFrame {
         lblText = new javax.swing.JLabel();
         lblDeveloper = new javax.swing.JLabel();
         panelDisplay = new javax.swing.JPanel();
+        lblTitleDisplay = new javax.swing.JLabel();
+        panelDisplayInfo = new javax.swing.JPanel();
+        scrollpaneTable = new javax.swing.JScrollPane();
+        tableDisplayInfo = new javax.swing.JTable();
+        btnRefresh = new javax.swing.JButton();
         panelSearchStudent = new javax.swing.JPanel();
-        panelSearchModule = new javax.swing.JPanel();
+        lblTitleSearch = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
+        radioStudents = new javax.swing.JRadioButton();
+        radioModule = new javax.swing.JRadioButton();
+        panelSearchInfo = new javax.swing.JPanel();
+        scrollpaneMessages = new javax.swing.JScrollPane();
+        txtMessages = new javax.swing.JTextPane();
+        lblMessages = new javax.swing.JLabel();
         panelStatistics = new javax.swing.JPanel();
         panelSettings = new javax.swing.JPanel();
 
@@ -123,7 +137,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(lblDeveloper)
                 .addContainerGap())
         );
@@ -132,48 +146,175 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         panelDisplay.setToolTipText(null);
 
+        lblTitleDisplay.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTitleDisplay.setText("All Students Information:");
+        lblTitleDisplay.setToolTipText(null);
+
+        panelDisplayInfo.setToolTipText(null);
+        panelDisplayInfo.setMaximumSize(new java.awt.Dimension(975, 495));
+        panelDisplayInfo.setMinimumSize(new java.awt.Dimension(975, 495));
+        panelDisplayInfo.setPreferredSize(new java.awt.Dimension(975, 495));
+
+        scrollpaneTable.setToolTipText(null);
+
+        tableDisplayInfo.setModel(StudentManagement.displayAllStudents());
+        tableDisplayInfo.setToolTipText(null);
+        scrollpaneTable.setViewportView(tableDisplayInfo);
+
+        javax.swing.GroupLayout panelDisplayInfoLayout = new javax.swing.GroupLayout(panelDisplayInfo);
+        panelDisplayInfo.setLayout(panelDisplayInfoLayout);
+        panelDisplayInfoLayout.setHorizontalGroup(
+            panelDisplayInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollpaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
+        );
+        panelDisplayInfoLayout.setVerticalGroup(
+            panelDisplayInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollpaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+        );
+
+        btnRefresh.setBackground(java.awt.Color.blue);
+        btnRefresh.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefresh.setText("REFRESH");
+        btnRefresh.setToolTipText(null);
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelDisplayLayout = new javax.swing.GroupLayout(panelDisplay);
         panelDisplay.setLayout(panelDisplayLayout);
         panelDisplayLayout.setHorizontalGroup(
             panelDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
+            .addGroup(panelDisplayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelDisplayInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelDisplayLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(lblTitleDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
         );
         panelDisplayLayout.setVerticalGroup(
             panelDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
+            .addGroup(panelDisplayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDisplayLayout.createSequentialGroup()
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                        .addGap(18, 28, Short.MAX_VALUE))
+                    .addGroup(panelDisplayLayout.createSequentialGroup()
+                        .addComponent(lblTitleDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
+                .addComponent(panelDisplayInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tabpaneMain.addTab("Display All Students", panelDisplay);
 
         panelSearchStudent.setToolTipText(null);
 
+        lblTitleSearch.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTitleSearch.setText("Search:");
+        lblTitleSearch.setToolTipText(null);
+
+        txtSearch.setToolTipText(null);
+        txtSearch.setMinimumSize(new java.awt.Dimension(380, 40));
+        txtSearch.setPreferredSize(new java.awt.Dimension(380, 40));
+
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jprg_assignment/search.png"))); // NOI18N
+        btnSearch.setToolTipText(null);
+        btnSearch.setBorderPainted(false);
+        btnSearch.setMaximumSize(new java.awt.Dimension(40, 40));
+        btnSearch.setMinimumSize(new java.awt.Dimension(40, 40));
+        btnSearch.setPreferredSize(new java.awt.Dimension(40, 40));
+
+        btnGroupSearch.add(radioStudents);
+        radioStudents.setSelected(true);
+        radioStudents.setText("By Students");
+        radioStudents.setToolTipText(null);
+        radioStudents.setMaximumSize(new java.awt.Dimension(150, 40));
+        radioStudents.setMinimumSize(new java.awt.Dimension(150, 40));
+        radioStudents.setPreferredSize(new java.awt.Dimension(150, 40));
+
+        btnGroupSearch.add(radioModule);
+        radioModule.setText("By Module");
+        radioModule.setToolTipText(null);
+        radioModule.setMaximumSize(new java.awt.Dimension(150, 40));
+        radioModule.setMinimumSize(new java.awt.Dimension(150, 40));
+        radioModule.setPreferredSize(new java.awt.Dimension(150, 40));
+
+        panelSearchInfo.setToolTipText(null);
+
+        txtMessages.setToolTipText(null);
+        scrollpaneMessages.setViewportView(txtMessages);
+
+        lblMessages.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblMessages.setText("Messages:");
+        lblMessages.setToolTipText(null);
+
+        javax.swing.GroupLayout panelSearchInfoLayout = new javax.swing.GroupLayout(panelSearchInfo);
+        panelSearchInfo.setLayout(panelSearchInfoLayout);
+        panelSearchInfoLayout.setHorizontalGroup(
+            panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSearchInfoLayout.createSequentialGroup()
+                .addGroup(panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollpaneMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelSearchInfoLayout.setVerticalGroup(
+            panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSearchInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(scrollpaneMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(210, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panelSearchStudentLayout = new javax.swing.GroupLayout(panelSearchStudent);
         panelSearchStudent.setLayout(panelSearchStudentLayout);
         panelSearchStudentLayout.setHorizontalGroup(
             panelSearchStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
+            .addGroup(panelSearchStudentLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(panelSearchInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
+            .addGroup(panelSearchStudentLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(panelSearchStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitleSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelSearchStudentLayout.createSequentialGroup()
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81)
+                        .addComponent(radioStudents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radioModule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         panelSearchStudentLayout.setVerticalGroup(
             panelSearchStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
+            .addGroup(panelSearchStudentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitleSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelSearchStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioModule, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioStudents, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(panelSearchInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
 
-        tabpaneMain.addTab("Search Student by Name", panelSearchStudent);
-
-        panelSearchModule.setToolTipText(null);
-
-        javax.swing.GroupLayout panelSearchModuleLayout = new javax.swing.GroupLayout(panelSearchModule);
-        panelSearchModule.setLayout(panelSearchModuleLayout);
-        panelSearchModuleLayout.setHorizontalGroup(
-            panelSearchModuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
-        );
-        panelSearchModuleLayout.setVerticalGroup(
-            panelSearchModuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
-        );
-
-        tabpaneMain.addTab("Search Module by Name", panelSearchModule);
+        tabpaneMain.addTab("Search", panelSearchStudent);
 
         panelStatistics.setToolTipText(null);
 
@@ -185,7 +326,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         );
         panelStatisticsLayout.setVerticalGroup(
             panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
+            .addGap(0, 578, Short.MAX_VALUE)
         );
 
         tabpaneMain.addTab("Statistics", panelStatistics);
@@ -200,7 +341,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         );
         panelSettingsLayout.setVerticalGroup(
             panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
+            .addGap(0, 578, Short.MAX_VALUE)
         );
 
         tabpaneMain.addTab("Profile Settings", panelSettings);
@@ -221,10 +362,14 @@ public class StudentMainMenu extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
+    
+    // <editor-fold defaultstate="collapsed" desc="Refresh Button">
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        tableDisplayInfo.setModel(StudentManagement.displayAllStudents());
+    }//GEN-LAST:event_btnRefreshActionPerformed
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Static Student Menu">
     public static void studentMenu(Object[] userObj) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -256,22 +401,38 @@ public class StudentMainMenu extends javax.swing.JFrame {
             }
         });
     }
+    // </editor-fold>
     
     public static void main(String[] args) {
+        StudentManagement.initializeStudents();
         studentMenu(new Object[] {"1", "Testtesttesteteststestet"});
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btnGroupSearch;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JLabel lblDeveloper;
+    private javax.swing.JLabel lblMessages;
     private javax.swing.JLabel lblText;
+    private javax.swing.JLabel lblTitleDisplay;
+    private javax.swing.JLabel lblTitleSearch;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JPanel panelDisplay;
-    private javax.swing.JPanel panelSearchModule;
+    private javax.swing.JPanel panelDisplayInfo;
+    private javax.swing.JPanel panelSearchInfo;
     private javax.swing.JPanel panelSearchStudent;
     private javax.swing.JPanel panelSettings;
     private javax.swing.JPanel panelStatistics;
     private javax.swing.JPanel panelText;
     private javax.swing.JPanel panelWelcome;
+    private javax.swing.JRadioButton radioModule;
+    private javax.swing.JRadioButton radioStudents;
+    private javax.swing.JScrollPane scrollpaneMessages;
+    private javax.swing.JScrollPane scrollpaneTable;
+    private javax.swing.JTable tableDisplayInfo;
     private javax.swing.JTabbedPane tabpaneMain;
+    private javax.swing.JTextPane txtMessages;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

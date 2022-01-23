@@ -49,6 +49,7 @@ public class Authentication {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
+        UserActivityLogger.infoLog("New Salt generated.");
         return salt;
     }
     
@@ -65,6 +66,7 @@ public class Authentication {
                 sb.append(Integer.toString((hashedPassword[i] & 0xff) + 0x100, 16).substring(1));
             }
             generatedPassword = sb.toString();
+            UserActivityLogger.infoLog("Hashed Password.");
         } catch (NoSuchAlgorithmException e) {
             UserActivityLogger.errLog(
                     "Unable to hash password due to NoSuchAlgorithmException", e
@@ -79,6 +81,7 @@ public class Authentication {
         String hashedInput = hashPassword(passwordInput, salt);
         if (hashedPassword.equals(hashedInput)) {
             verification = true;
+            UserActivityLogger.infoLog("Password verfied true.");
         }
         return verification;
     }
