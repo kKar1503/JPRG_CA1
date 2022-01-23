@@ -1,21 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package jprg_assignment;
 
-/**
- *
- * @author ISoNi
- */
 public class AdminMainMenu extends javax.swing.JFrame {
-
+    private Object[] adminObj;
     /**
      * Creates new form AdminMainMenu
      */
-    public AdminMainMenu() {
+    public AdminMainMenu(Object[] userObj) {
         initComponents();
+        this.adminObj = userObj;
+        jLabel1.setText(this.adminObj[1].toString());
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                // Good bye sound effect
+                SoundPlayer.playSound("SoundEffects\\\\Bye.wav");
+                // Log Program termination
+                UserActivityLogger.infoLog("Program Terminated");
+                // Await Soundplayer duration
+                try {
+                    Thread.sleep(1200);
+                } catch (InterruptedException ex) {
+                    System.out.println(ex);
+                }
+                System.exit(0);
+            }
+        });
     }
 
     /**
@@ -51,12 +61,13 @@ public class AdminMainMenu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void adminMenu(Object[] userObj) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -83,7 +94,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminMainMenu().setVisible(true);
+                new AdminMainMenu(userObj).setVisible(true);
             }
         });
     }

@@ -8,7 +8,8 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         // Initialize hidden components
         lblWrongPW.setVisible(false);
-        setLocationRelativeTo(null);
+        // Set default button to Login to capture 'Enter' Key
+        getRootPane().setDefaultButton(btnLogin);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -177,6 +178,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        lblDeveloper.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblDeveloper.setText("Developed by: Yam Kar Lok");
         lblDeveloper.setToolTipText(null);
 
@@ -232,6 +234,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // <editor-fold defaultstate="collapsed" desc="Login Button">
@@ -242,10 +245,10 @@ public class Login extends javax.swing.JFrame {
         if (userObj[0].equals(true)) {
             if(userObj[2].equals(true)) {
                 this.setVisible(false);
-                new AdminMainMenu().setVisible(true);
+                AdminMainMenu.adminMenu(userObj);
             } else {
                 this.setVisible(false);
-                new StudentMainMenu().setVisible(true);
+                StudentMainMenu.studentMenu(userObj);
             }
         } else {
             UserActivityLogger.infoLog("User entered wrong login credentials:"
