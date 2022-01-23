@@ -1,12 +1,15 @@
 
 package jprg_assignment;
 
-public class Credential {
+import java.io.Serializable;
+
+public class Credential implements Serializable{
     private String username;
     private String password;
     private String name;
     private boolean admin;
     private boolean access;
+    private byte[] salt;
     
     public Credential(String username, String password, String name, boolean admin, boolean access) {
         this.username = username;
@@ -29,7 +32,15 @@ public class Credential {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        // For each new password, a new salt is generator to add on randomness
+        byte[] newSalt = Authentication.saltGenerator();
+        // Hash the new password with the new salt
+        String newHashedPassword = Authentication.hashPassword(password, newSalt);
+        if (newHashedPassword != null) {
+            this.password = newHashedPassword;
+            // Store the new salt corresponding to this new password
+            this.setSalt(newSalt);
+        }
     }
 
     public String getName() {
@@ -54,5 +65,13 @@ public class Credential {
 
     public void setAccess(boolean access) {
         this.access = access;
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 }

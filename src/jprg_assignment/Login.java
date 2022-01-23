@@ -1,14 +1,13 @@
 
 package jprg_assignment;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class Login extends javax.swing.JFrame {
 
     /** Creates new form Login */
     public Login() {
         initComponents();
+        // Initialize hidden components
+        lblWrongPW.setVisible(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -36,6 +35,7 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         panelBackground = new javax.swing.JPanel();
         imgLogo = new javax.swing.JLabel();
         panelLogin = new javax.swing.JPanel();
@@ -45,8 +45,20 @@ public class Login extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
+        lblWrongPW = new javax.swing.JLabel();
         lblDeveloper = new javax.swing.JLabel();
         lblHeader = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Singapore Polytechnic - Mini Student System");
@@ -64,6 +76,8 @@ public class Login extends javax.swing.JFrame {
         panelLogin.setBackground(new java.awt.Color(255, 255, 255));
         panelLogin.setBorder(javax.swing.BorderFactory.createTitledBorder("Login"));
         panelLogin.setToolTipText(null);
+        panelLogin.setMaximumSize(new java.awt.Dimension(350, 200));
+        panelLogin.setMinimumSize(new java.awt.Dimension(300, 200));
         panelLogin.setName(""); // NOI18N
 
         labelUsername.setText("Username");
@@ -107,6 +121,11 @@ public class Login extends javax.swing.JFrame {
         txtPassword.setMinimumSize(new java.awt.Dimension(150, 20));
         txtPassword.setPreferredSize(new java.awt.Dimension(150, 20));
 
+        lblWrongPW.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblWrongPW.setForeground(java.awt.Color.red);
+        lblWrongPW.setText("Invalid login credentials. Try again!");
+        lblWrongPW.setToolTipText(null);
+
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
         panelLoginLayout.setHorizontalGroup(
@@ -130,8 +149,12 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(panelLoginLayout.createSequentialGroup()
                         .addComponent(labelUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)))
+                        .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(13, 13, 13))
+            .addGroup(panelLoginLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(lblWrongPW)
+                .addContainerGap())
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +167,9 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblWrongPW)
+                .addGap(18, 18, 18)
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -164,21 +189,22 @@ public class Login extends javax.swing.JFrame {
             panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBackgroundLayout.createSequentialGroup()
                 .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBackgroundLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblDeveloper))
+                    .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBackgroundLayout.createSequentialGroup()
+                            .addGap(0, 0, 0)
+                            .addComponent(lblDeveloper))
+                        .addGroup(panelBackgroundLayout.createSequentialGroup()
+                            .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panelBackgroundLayout.createSequentialGroup()
+                                    .addGap(50, 50, 50)
+                                    .addComponent(imgLogo))
+                                .addGroup(panelBackgroundLayout.createSequentialGroup()
+                                    .addGap(96, 96, 96)
+                                    .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(38, 38, 38)))
                     .addGroup(panelBackgroundLayout.createSequentialGroup()
-                        .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelBackgroundLayout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(imgLogo))
-                            .addGroup(panelBackgroundLayout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelBackgroundLayout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addComponent(panelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 38, Short.MAX_VALUE)))
+                        .addGap(88, 88, 88)
+                        .addComponent(panelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelBackgroundLayout.setVerticalGroup(
@@ -188,9 +214,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(imgLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(panelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(lblDeveloper)
                 .addContainerGap())
         );
@@ -214,10 +240,19 @@ public class Login extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = String.valueOf(txtPassword.getPassword());
         Object[] userObj = Authentication.authenticate(username, password);
-        if(userObj[2].equals(true)) {
-            System.out.println("go to admin page");
+        if (userObj[0].equals(true)) {
+            if(userObj[2].equals(true)) {
+                this.setVisible(false);
+                new AdminMainMenu().setVisible(true);
+            } else {
+                this.setVisible(false);
+                new StudentMainMenu().setVisible(true);
+            }
         } else {
-            System.out.println("go student page");
+            UserActivityLogger.infoLog("User entered wrong login credentials:"
+                    + "\nUsername: " + username
+                    + "\nPassword: " + password);
+            lblWrongPW.setVisible(true);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
     // </editor-fold>
@@ -283,10 +318,12 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel imgLogo;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JLabel labelUsername;
     private javax.swing.JLabel lblDeveloper;
     private javax.swing.JLabel lblHeader;
+    private javax.swing.JLabel lblWrongPW;
     private javax.swing.JPanel panelBackground;
     private javax.swing.JPanel panelLogin;
     private javax.swing.JPasswordField txtPassword;
