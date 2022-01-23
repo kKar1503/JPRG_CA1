@@ -24,10 +24,6 @@ public class Credential implements Serializable{
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -40,7 +36,7 @@ public class Credential implements Serializable{
         if (newHashedPassword != null) {
             this.password = newHashedPassword;
             // Store the new salt corresponding to this new password
-            this.setSalt(newSalt);
+            this.salt = newSalt;
         }
     }
 
@@ -72,7 +68,4 @@ public class Credential implements Serializable{
         return salt;
     }
 
-    public void setSalt(byte[] salt) {
-        this.salt = salt;
-    }
 }

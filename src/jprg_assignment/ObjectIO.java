@@ -5,8 +5,10 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class ObjectIO {
+    // File lists
+    private static File credentialFile = new File("dat\\\\Credentials.dat");
+    
     public static void credentialSerialization(Credential credential) {
-        File f = new File("dat\\\\Credentials.dat");
         // Import a list of existing credentials
         ArrayList<Credential> currentCredentials = credentialDeserialization();
         // If return null, create a new ArrayList
@@ -26,7 +28,7 @@ public class ObjectIO {
             System.out.println("added");
             currentCredentials.add(credential);
             try (ObjectOutputStream outStream = new ObjectOutputStream(
-                        new FileOutputStream(f))){
+                        new FileOutputStream(credentialFile))){
                 outStream.writeObject(currentCredentials);
                 outStream.close();
             } catch (IOException e) {
@@ -38,9 +40,8 @@ public class ObjectIO {
     }
     
     public static ArrayList<Credential> credentialDeserialization() {
-        File f = new File("dat\\\\Credentials.dat");
         try (ObjectInputStream inStream = new ObjectInputStream(
-                    new FileInputStream(f))){
+                    new FileInputStream(credentialFile))){
             ArrayList<Credential> credentials = (ArrayList<Credential>)inStream.readObject();
             inStream.close();
             return credentials;
@@ -53,5 +54,26 @@ public class ObjectIO {
             UserActivityLogger.errLog("Unable to deserialize Credential Object.", e);
         }
         return null;
+    }
+    
+    public static void credentialChange(String username, String password, String name) {
+        ArrayList<Credential> currentCredentials = credentialDeserialization();
+        for (Credential credential: currentCredentials) {
+            if (credential.getUsername().equals(username)) {
+                if (password != null) {
+                    credential.setPassword(password);
+                }
+                if (name != null) {
+                    credential.setName(name);
+                }
+            }
+        }
+        try (ObjectOutputStream outStream = new ObjectOutputStream(
+                    new FileOutputStream(credentialFile))){
+            outStream.writeObject(currentCredentials);
+            outStream.close();
+        } catch (IOException e) {
+            UserActivityLogger.errLog("Unable to serialize new Credential Object", e);
+        }
     }
 }
