@@ -5,7 +5,9 @@
 
 package jprg_assignment;
 
-public class Module {
+import java.io.Serializable;
+
+public class Module implements Serializable{
     private String code, name;
     private int creditUnit;
     private double marks;

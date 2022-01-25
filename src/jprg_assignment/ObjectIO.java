@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class ObjectIO {
     // File lists
     final private static File CREDENTIAL_FILE = new File("dat\\\\Credentials.dat");
+    final private static File STUDENT_FILE = new File("dat\\\\Students.dat");
     
     public static void credentialSerialization(Credential credential) {
         // Import a list of existing credentials
@@ -32,7 +33,7 @@ public class ObjectIO {
                 outStream.writeObject(currentCredentials);
                 outStream.close();
             } catch (IOException e) {
-                UserActivityLogger.errLog("Unable to serialize Credential Object", e);
+                UserActivityLogger.errLog("Unable to serialize Credential Objects", e);
             }
         } else {
             UserActivityLogger.errLog("New Credential is not added as there's duplicated username", null);
@@ -51,7 +52,7 @@ public class ObjectIO {
             // When there is no data initialized
             UserActivityLogger.errLog("No serialize file found.", e);
         } catch (IOException | ClassNotFoundException e) {
-            UserActivityLogger.errLog("Unable to deserialize Credential Object.", e);
+            UserActivityLogger.errLog("Unable to deserialize Credential Objects.", e);
         }
         return null;
     }
@@ -73,7 +74,34 @@ public class ObjectIO {
             outStream.writeObject(currentCredentials);
             outStream.close();
         } catch (IOException e) {
-            UserActivityLogger.errLog("Unable to serialize new Credential Object", e);
+            UserActivityLogger.errLog("Unable to serialize new Credential Objects", e);
         }
+    }
+    
+    public static void studentSerialization(ArrayList<Student> studentList) {
+        try (ObjectOutputStream outStream = new ObjectOutputStream(
+                    new FileOutputStream(STUDENT_FILE))){
+            outStream.writeObject(studentList);
+            outStream.close();
+        } catch (IOException e) {
+            UserActivityLogger.errLog("Unable to serialize Student Objects", e);
+        }
+    }
+    
+    public static ArrayList<Student> studentDeserialization() {
+        try (ObjectInputStream inStream = new ObjectInputStream(
+                    new FileInputStream(STUDENT_FILE))){
+            ArrayList<Student> studentList = (ArrayList<Student>)inStream.readObject();
+            inStream.close();
+            return studentList;
+        } catch (EOFException e) {
+            // Ignore, reached end of file
+        } catch (FileNotFoundException e) {
+            // When there is no data initialized
+            UserActivityLogger.errLog("No serialize file found.", e);
+        } catch (IOException | ClassNotFoundException e) {
+            UserActivityLogger.errLog("Unable to deserialize Student Objects.", e);
+        }
+        return null;
     }
 }

@@ -403,10 +403,10 @@ public class StudentMainMenu extends javax.swing.JFrame {
     }
     // </editor-fold>
     
-    public static void main(String[] args) {
-        StudentManagement.initializeStudents();
-        studentMenu(new Object[] {"1", "Testtesttesteteststestet"});
-    }
+//    public static void main(String[] args) {
+//        StudentManagement.initializeStudents();
+//        studentMenu(new Object[] {"1", "Testtesttesteteststestet"});
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGroupSearch;
