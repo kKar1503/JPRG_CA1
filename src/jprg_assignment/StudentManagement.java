@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class StudentManagement {
-
     private static ArrayList<Student> studentList = new ArrayList<>();
 
 //    public static void initializeStudents() {
@@ -103,6 +102,11 @@ public class StudentManagement {
         } catch (IOException e) {
             UserActivityLogger.errLog("Unable to initialize students from students.txt", e);
         }
+    }
+    public static void objectIOInitializeStudents() {
+        studentList = ObjectIO.studentDeserialization();
+        
+        UserActivityLogger.infoLog("3 Default Students initialized");
     }
 
     public static DefaultTableModel displayAllStudents() {

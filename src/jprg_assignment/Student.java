@@ -5,9 +5,11 @@
 
 package jprg_assignment;
 
+import java.io.Serializable;
+
 import java.util.ArrayList; // Import ArrayList class for resizable array.
 
-public class Student {
+public class Student implements Serializable {
     private String name, course;
     private int adminNumber;
     private double gpa;

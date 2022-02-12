@@ -311,6 +311,8 @@ public class Login extends javax.swing.JFrame {
                 UserActivityLogger.setupLogger();
                 // Log Program Initation
                 UserActivityLogger.infoLog("Program started");
+                // Initialize students
+                StudentManagement.initializeStudents();
             }
         });
     }
