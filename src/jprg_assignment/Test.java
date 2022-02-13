@@ -18,6 +18,10 @@ public class Test {
 //        InternationalStudent s1 = new InternationalStudent("John Tan", "DISM", 2123131, moduleList, true);
 //        System.out.println("international student " + s1.getName());
         IOSystem.initializeStudents();
+//            ArrayList<Student> studentList = IOSystem.studentDeserialization();
+//            for (int i = 0; i < studentList.size(); i++) {
+//                System.out.println(studentList.get(i).getModuleList().size());
+//        }
     }
     
     public static void initializeCreds() {

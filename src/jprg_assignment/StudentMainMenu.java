@@ -35,6 +35,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                // Student Data Serialization
+                IOSystem.studentSerialization(StudentManagement.getStudentList());
                 // Good bye sound effect
                 SoundPlayer.playSound("SoundEffects\\\\Bye.wav");
                 // Log Program termination
@@ -446,6 +448,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         btnPreviousStudent.setText("Previous");
         btnPreviousStudent.setToolTipText(null);
+        btnPreviousStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreviousStudentActionPerformed(evt);
+            }
+        });
 
         lblStudentAdminNo.setText("Admin #:");
         lblStudentAdminNo.setToolTipText(null);
@@ -455,6 +462,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         btnNextStudent.setText("Next");
         btnNextStudent.setToolTipText(null);
+        btnNextStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextStudentActionPerformed(evt);
+            }
+        });
 
         lblStudentCourse.setText("Course:");
         lblStudentCourse.setToolTipText(null);
@@ -464,6 +476,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         btnFirstStudent.setText("First");
         btnFirstStudent.setToolTipText(null);
+        btnFirstStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstStudentActionPerformed(evt);
+            }
+        });
 
         lblStudentGPA.setText("GPA:");
         lblStudentGPA.setToolTipText(null);
@@ -473,6 +490,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         btnLastStudent.setText("Last");
         btnLastStudent.setToolTipText(null);
+        btnLastStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastStudentActionPerformed(evt);
+            }
+        });
 
         lblStudentInfo.setText("Other Info:");
         lblStudentInfo.setToolTipText(null);
@@ -558,6 +580,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         btnPreviousModule.setText("Previous");
         btnPreviousModule.setToolTipText(null);
+        btnPreviousModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreviousModuleActionPerformed(evt);
+            }
+        });
 
         lblModuleName.setText("Module Name:");
         lblModuleName.setToolTipText(null);
@@ -567,6 +594,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         btnNextModule.setText("Next");
         btnNextModule.setToolTipText(null);
+        btnNextModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextModuleActionPerformed(evt);
+            }
+        });
 
         lblStudentName3.setText("Credit Unit:");
         lblStudentName3.setToolTipText(null);
@@ -576,6 +608,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         btnFirstModule.setText("First");
         btnFirstModule.setToolTipText(null);
+        btnFirstModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstModuleActionPerformed(evt);
+            }
+        });
 
         lblStudentName4.setText("Marks:");
         lblStudentName4.setToolTipText(null);
@@ -585,6 +622,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         btnLastModule.setText("Last");
         btnLastModule.setToolTipText(null);
+        btnLastModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastModuleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelModuleDisplayLayout = new javax.swing.GroupLayout(panelModuleDisplay);
         panelModuleDisplay.setLayout(panelModuleDisplayLayout);
@@ -821,9 +863,19 @@ public class StudentMainMenu extends javax.swing.JFrame {
         if (query.isEmpty()) {
             logHeader = "Search Failed: Search Query is empty!";
             searchResult = "N/A";
+        } else if ((query.equalsIgnoreCase("full") || query.equalsIgnoreCase("all")) && radioStudents.isSelected()) {
+            this.studentSearch = StudentManagement.getStudentList();
+            logHeader = "Search Success!";
+            searchResult = this.studentSearch.size() + " matching user(s) found!\n";
+            for (int i = 0; i < this.studentSearch.size(); i++) {
+                searchResult += "\n" + this.studentSearch.get(i).getName();
+            }
+            this.studentPage = 1;
+            this.modulePage = 1;
+            repaintPanels();
         } else {
             if (radioStudents.isSelected()) {
-                this.studentSearch = StudentManagement.searchStudent((boolean)this.studentObj[3], (String)this.studentObj[1], query);
+                this.studentSearch = StudentManagement.searchStudent((boolean) this.studentObj[3], (String) this.studentObj[1], query);
                 if (this.studentSearch.isEmpty()) {
                     logHeader = "Search Failed!";
                     searchResult = "No result found.";
@@ -833,6 +885,9 @@ public class StudentMainMenu extends javax.swing.JFrame {
                     for (int i = 0; i < this.studentSearch.size(); i++) {
                         searchResult += "\n" + this.studentSearch.get(i).getName();
                     }
+                    this.studentPage = 1;
+                    this.modulePage = 1;
+                    repaintPanels();
                 }
             } else if (radioModule.isSelected()) {
                 this.moduleSearch = StudentManagement.searchModule(query);
@@ -860,20 +915,42 @@ public class StudentMainMenu extends javax.swing.JFrame {
         long elapsedTime = endTime.getTime() - date.getTime();
         searchLog += logHeader + "\n" + searchTimestamp + " (Search duration: " + elapsedTime + " ms)"
                 + "\n\n" + searchResult + "\n" + SEPARATOR;
-        if ((boolean)this.studentObj[3]) {
+        if ((boolean) this.studentObj[3]) {
             txtSearchLog.setText(searchLog);
         }
     }//GEN-LAST:event_btnSearchActionPerformed
     // </editor-fold>
-    
+
+    // <editor-fold defaultstate="collapsed" desc="Repaint Panels Method">
+    private void repaintPanels() {
+        ((TitledBorder) panelStudentDisplay.getBorder()).setTitle("Student " + this.studentPage + " of " + this.studentSearch.size());
+        ((TitledBorder) panelModuleDisplay.getBorder()).setTitle("Module " + this.modulePage + " of " + this.studentSearch.get(this.studentPage - 1).getModuleList().size());
+        txtStudentName.setText(this.studentSearch.get(this.studentPage - 1).getName());
+        txtStudentAdminNo.setText("P" + this.studentSearch.get(this.studentPage - 1).getAdminNumber());
+        txtStudentCourse.setText(this.studentSearch.get(this.studentPage - 1).getCourse());
+        txtStudentGPA.setText(this.studentSearch.get(this.studentPage - 1).getGpa());
+        txtStudentInfo.setText(this.studentSearch.get(this.studentPage - 1).getStudentInformation());
+        txtModuleCode.setText(this.studentSearch.get(this.studentPage - 1).getModuleList().get(this.modulePage - 1).getCode());
+        txtModuleName.setText(this.studentSearch.get(this.studentPage - 1).getModuleList().get(this.modulePage - 1).getName());
+        txtModuleCU.setText(this.studentSearch.get(this.studentPage - 1).getModuleList().get(this.modulePage - 1).getCreditUnit() + "");
+        txtModuleMarks.setText(this.studentSearch.get(this.studentPage - 1).getModuleList().get(this.modulePage - 1).getMarks() + "");
+        panelStudentDisplay.repaint();
+        panelModuleDisplay.repaint();
+    }
+    // </editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Reset Button">
     private void btnResetSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetSearchActionPerformed
-        this.studentSearch = null;
-        this.moduleSearch = null;
-        txtSearch.setText("");
-        txtSearchLog.setText("");
+        if (studentObj[3].equals(true)) {
+            this.studentSearch = null;
+            this.moduleSearch = null;
+            txtSearch.setText("");
+            txtSearchLog.setText("");
+        }
         ((TitledBorder) panelStudentDisplay.getBorder()).setTitle("Student 0 of 0");
+        panelStudentDisplay.repaint();
         ((TitledBorder) panelModuleDisplay.getBorder()).setTitle("Module 0 of 0");
+        panelModuleDisplay.repaint();
         txtStudentName.setText("");
         txtStudentAdminNo.setText("");
         txtStudentCourse.setText("");
@@ -884,6 +961,82 @@ public class StudentMainMenu extends javax.swing.JFrame {
         txtModuleCU.setText("");
         txtModuleMarks.setText("");
     }//GEN-LAST:event_btnResetSearchActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Student Previous">
+    private void btnPreviousStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousStudentActionPerformed
+        if (this.studentPage > 1) {
+            this.studentPage -= 1;
+            this.modulePage = 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnPreviousStudentActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Student Next">
+    private void btnNextStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextStudentActionPerformed
+        if (this.studentPage < this.studentSearch.size()) {
+            this.studentPage += 1;
+            this.modulePage = 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnNextStudentActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Student First">
+    private void btnFirstStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstStudentActionPerformed
+        if (this.studentPage != 1) {
+            this.studentPage = 1;
+            this.modulePage = 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnFirstStudentActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Student Last">
+    private void btnLastStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastStudentActionPerformed
+        if (this.studentPage != this.studentSearch.size()) {
+            this.studentPage = this.studentSearch.size();
+            this.modulePage = 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnLastStudentActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Module Previous">
+    private void btnPreviousModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousModuleActionPerformed
+        if (this.modulePage > 1) {
+            this.modulePage -= 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnPreviousModuleActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Module Next">
+    private void btnNextModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextModuleActionPerformed
+        if (this.modulePage < this.studentSearch.get(this.studentPage - 1).getModuleList().size()) {
+            this.modulePage += 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnNextModuleActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Module First">
+    private void btnFirstModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstModuleActionPerformed
+        if (this.modulePage != 1) {
+            this.modulePage = 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnFirstModuleActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Module Last">
+    private void btnLastModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastModuleActionPerformed
+        if (this.modulePage != this.studentSearch.get(this.studentPage - 1).getModuleList().size()) {
+            this.modulePage = this.studentSearch.get(this.studentPage - 1).getModuleList().size();
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnLastModuleActionPerformed
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Static Student Menu">
