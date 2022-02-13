@@ -1159,11 +1159,10 @@ public class StudentMainMenu extends javax.swing.JFrame {
     
     // <editor-fold defaultstate="collapsed" desc="Change Password">
     private void btnChangePWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePWActionPerformed
-        String password1 = txtNewPW.getPassword().toString();
-        String password2 = txtNewPWConfirm.getPassword().toString();
+        String password1 = String.valueOf(txtNewPW.getPassword());
+        String password2 = String.valueOf(txtNewPWConfirm.getPassword());
         if (password1.equals(password2)) {
-            String hashedPassword = Authentication.hashPassword(password1, Authentication.saltGenerator());
-            IOSystem.credentialChange(hashedPassword, (String)this.studentObj[1]);
+            IOSystem.credentialChange(password1, (String)this.studentObj[1]);
             JOptionPane.showMessageDialog(null, "Password Updated!");
         } else {
             JOptionPane.showMessageDialog(null, 
