@@ -354,6 +354,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
         btnSearch.setMaximumSize(new java.awt.Dimension(40, 40));
         btnSearch.setMinimumSize(new java.awt.Dimension(40, 40));
         btnSearch.setPreferredSize(new java.awt.Dimension(40, 40));
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         btnGroupSearch.add(radioStudents);
         radioStudents.setSelected(true);
@@ -373,7 +378,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         panelSearchInfo.setToolTipText(null);
 
         txtSearchLog.setEditable(false);
-        txtSearchLog.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium venenatis luctus. Donec tristique nunc non diam bibendum rutrum. Suspendisse eu eros aliquet, vehicula orci ac, eleifend turpis. Nunc et sem lobortis, venenatis lacus et, fringilla lacus. Quisque lobortis, dui eget malesuada egestas, augue orci pellentesque ante, ac sagittis elit lorem id ex. Nullam eget interdum lorem, non pharetra tortor. Phasellus venenatis posuere mauris, quis semper urna. Mauris ullamcorper mi erat, ac aliquam eros ullamcorper in. Vivamus eu ipsum mauris. Aenean vestibulum vulputate posuere.\n\nNunc et aliquet odio. Nulla ac nulla nec nisl molestie accumsan nec nec velit. Nam efficitur nunc non erat finibus semper. Donec bibendum id urna ut efficitur. Nunc non tincidunt eros. Proin eget ligula et felis luctus fringilla. Etiam pharetra dignissim placerat. Integer id risus quis eros dignissim dictum.");
+        txtSearchLog.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtSearchLog.setToolTipText(null);
         scrollpaneMessages.setViewportView(txtSearchLog);
 
@@ -524,6 +529,16 @@ public class StudentMainMenu extends javax.swing.JFrame {
             IOSystem.openFile(saveFile.toString());
         }
     }//GEN-LAST:event_btnExportLogActionPerformed
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Search Button">
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        System.out.println("your mom");
+        String searchLog = txtSearchLog.getText();
+        String logHeader, searchTimestamp;
+        final String Separator = "\n==========================\n\n";
+        txtSearchLog.setText(Separator);
+    }//GEN-LAST:event_btnSearchActionPerformed
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Static Student Menu">
