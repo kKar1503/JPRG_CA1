@@ -12,21 +12,21 @@ import javax.swing.border.TitledBorder;
 
 public class StudentMainMenu extends javax.swing.JFrame {
 
-    private Object[] studentObj;
+    private Object[] userObj;
     private ArrayList<Student> studentSearch;
     private ArrayList<Module> moduleSearch;
     private int studentPage = 0, modulePage = 0;
 
     public StudentMainMenu(Object[] userObj) {
         initComponents();
-        this.studentObj = userObj;
+        this.userObj = userObj;
         // Prevent table's column from being movable
         lblWelcome.setText("Welcome, " + userObj[1].toString() + "!");
-        ImageIcon icon = new ImageIcon("./users/" + studentObj[1] + ".png");
+        ImageIcon icon = new ImageIcon("./users/" + this.userObj[1] + ".png");
         Image image = icon.getImage();
         Image resizedImg = image.getScaledInstance(250, 500, java.awt.Image.SCALE_SMOOTH);
         lblProfileImage.setIcon(new ImageIcon(resizedImg));
-        if (this.studentObj[3].equals(true)) {
+        if (this.userObj[3].equals(true)) {
             tableDisplayInfo.getTableHeader().setReorderingAllowed(false);
         } else {
             tabpaneMain.setEnabledAt(1, false);
@@ -983,7 +983,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
             repaintPanels();
         } else {
             if (radioStudents.isSelected()) {
-                this.studentSearch = StudentManagement.searchStudent((boolean) this.studentObj[3], (String) this.studentObj[1], query);
+                this.studentSearch = StudentManagement.searchStudent((boolean) this.userObj[3], (String) this.userObj[1], query);
                 if (this.studentSearch.isEmpty()) {
                     logHeader = "Search Failed!";
                     searchResult = "No result found.";
@@ -1023,7 +1023,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         long elapsedTime = endTime.getTime() - date.getTime();
         searchLog += logHeader + "\n" + searchTimestamp + " (Search duration: " + elapsedTime + " ms)"
                 + "\n\n" + searchResult + "\n" + SEPARATOR;
-        if ((boolean) this.studentObj[3]) {
+        if ((boolean) this.userObj[3]) {
             txtSearchLog.setText(searchLog);
         }
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -1049,7 +1049,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Reset Button">
     private void btnResetSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetSearchActionPerformed
-        if (studentObj[3].equals(true)) {
+        if (userObj[3].equals(true)) {
             this.studentSearch = null;
             this.moduleSearch = null;
             txtSearch.setText("");
@@ -1162,7 +1162,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         String password1 = String.valueOf(txtNewPW.getPassword());
         String password2 = String.valueOf(txtNewPWConfirm.getPassword());
         if (password1.equals(password2)) {
-            IOSystem.credentialChange(password1, (String)this.studentObj[1]);
+            IOSystem.credentialChange(password1, (String)this.userObj[1]);
             JOptionPane.showMessageDialog(null, "Password Updated!");
         } else {
             JOptionPane.showMessageDialog(null, 
@@ -1197,6 +1197,9 @@ public class StudentMainMenu extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(StudentMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

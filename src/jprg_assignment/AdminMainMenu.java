@@ -1,18 +1,37 @@
-
 package jprg_assignment;
 
+import java.awt.Image;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
+
 public class AdminMainMenu extends javax.swing.JFrame {
-    private Object[] adminObj;
-    /**
-     * Creates new form AdminMainMenu
-     */
+
+    private Object[] userObj;
+    private ArrayList<Student> studentSearch;
+    private ArrayList<Module> moduleSearch;
+    private int studentPage = 0, modulePage = 0;
+
     public AdminMainMenu(Object[] userObj) {
         initComponents();
-        this.adminObj = userObj;
-        jLabel1.setText(this.adminObj[1].toString());
+        this.userObj = userObj;
+        // Prevent table's column from being movable
+        lblWelcome.setText("Welcome, " + userObj[1].toString() + "!");
+        ImageIcon icon = new ImageIcon("./users/" + this.userObj[1] + ".png");
+        Image image = icon.getImage();
+        Image resizedImg = image.getScaledInstance(250, 500, java.awt.Image.SCALE_SMOOTH);
+        lblProfileImage.setIcon(new ImageIcon(resizedImg));
+        tableDisplayInfo.getTableHeader().setReorderingAllowed(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                // Student Data Serialization
+                IOSystem.studentSerialization(StudentManagement.getStudentList());
                 // Good bye sound effect
                 SoundPlayer.playSound("SoundEffects\\\\Bye.wav");
                 // Log Program termination
@@ -37,36 +56,1113 @@ public class AdminMainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        btnGroupSearch = new javax.swing.ButtonGroup();
+        tabpaneMain = new javax.swing.JTabbedPane();
+        panelWelcome = new javax.swing.JPanel();
+        lblWelcome = new javax.swing.JLabel();
+        panelText = new javax.swing.JPanel();
+        lblText = new javax.swing.JLabel();
+        lblDeveloper = new javax.swing.JLabel();
+        panelDisplay = new javax.swing.JPanel();
+        lblTitleDisplay = new javax.swing.JLabel();
+        panelDisplayInfo = new javax.swing.JPanel();
+        scrollpaneTable = new javax.swing.JScrollPane();
+        tableDisplayInfo = new javax.swing.JTable();
+        btnRefreshDisplay = new javax.swing.JButton();
+        panelStatistics = new javax.swing.JPanel();
+        lblTitleStats = new javax.swing.JLabel();
+        btnRefreshStats = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtStats = new javax.swing.JTextPane();
+        jPanel1 = new javax.swing.JPanel();
+        lblTitleExport = new javax.swing.JLabel();
+        lblTextExport = new javax.swing.JLabel();
+        btnExportStats = new javax.swing.JButton();
+        panelSearchStudent = new javax.swing.JPanel();
+        lblTitleSearch = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
+        radioStudents = new javax.swing.JRadioButton();
+        radioModule = new javax.swing.JRadioButton();
+        panelSearchInfo = new javax.swing.JPanel();
+        scrollpaneMessages = new javax.swing.JScrollPane();
+        txtSearchLog = new javax.swing.JTextPane();
+        lblMessages = new javax.swing.JLabel();
+        btnExportLog = new javax.swing.JButton();
+        panelStudentDisplay = new javax.swing.JPanel();
+        lblStudentName = new javax.swing.JLabel();
+        txtStudentName = new javax.swing.JTextField();
+        btnPreviousStudent = new javax.swing.JButton();
+        lblStudentAdminNo = new javax.swing.JLabel();
+        txtStudentAdminNo = new javax.swing.JTextField();
+        btnNextStudent = new javax.swing.JButton();
+        lblStudentCourse = new javax.swing.JLabel();
+        txtStudentCourse = new javax.swing.JTextField();
+        btnFirstStudent = new javax.swing.JButton();
+        lblStudentGPA = new javax.swing.JLabel();
+        txtStudentGPA = new javax.swing.JTextField();
+        btnLastStudent = new javax.swing.JButton();
+        lblStudentInfo = new javax.swing.JLabel();
+        txtStudentInfo = new javax.swing.JTextField();
+        panelModuleDisplay = new javax.swing.JPanel();
+        lblModuleCode = new javax.swing.JLabel();
+        txtModuleCode = new javax.swing.JTextField();
+        btnPreviousModule = new javax.swing.JButton();
+        lblModuleName = new javax.swing.JLabel();
+        txtModuleName = new javax.swing.JTextField();
+        btnNextModule = new javax.swing.JButton();
+        lblStudentName3 = new javax.swing.JLabel();
+        txtModuleCU = new javax.swing.JTextField();
+        btnFirstModule = new javax.swing.JButton();
+        lblStudentName4 = new javax.swing.JLabel();
+        txtModuleMarks = new javax.swing.JTextField();
+        btnLastModule = new javax.swing.JButton();
+        btnResetSearch = new javax.swing.JButton();
+        panelSettings = new javax.swing.JPanel();
+        lblProfileImage = new javax.swing.JLabel();
+        lblNameProfile = new javax.swing.JLabel();
+        btnChangePW = new javax.swing.JButton();
+        lblPassword = new javax.swing.JLabel();
+        lblConfirmPassword = new javax.swing.JLabel();
+        lblChangePW = new javax.swing.JLabel();
+        txtNewPW = new javax.swing.JPasswordField();
+        txtNewPWConfirm = new javax.swing.JPasswordField();
+        btnLogOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Singapore Polytechnic - Mini Student System");
+        setResizable(false);
 
-        jLabel1.setText("ADMIN");
+        tabpaneMain.setBackground(new java.awt.Color(255, 255, 255));
+        tabpaneMain.setToolTipText(null);
+
+        panelWelcome.setBackground(new java.awt.Color(255, 255, 255));
+        panelWelcome.setToolTipText(null);
+
+        lblWelcome.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblWelcome.setText("Welcome");
+        lblWelcome.setToolTipText(null);
+        lblWelcome.setMaximumSize(new java.awt.Dimension(800, 65));
+        lblWelcome.setMinimumSize(new java.awt.Dimension(800, 65));
+        lblWelcome.setPreferredSize(new java.awt.Dimension(800, 65));
+
+        panelText.setBackground(new java.awt.Color(255, 255, 255));
+        panelText.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
+        panelText.setToolTipText(null);
+        panelText.setMaximumSize(new java.awt.Dimension(975, 430));
+        panelText.setMinimumSize(new java.awt.Dimension(975, 430));
+        panelText.setPreferredSize(new java.awt.Dimension(975, 430));
+
+        lblText.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblText.setText("<html>\n<p>This is an implementation of a student management system using <strong><u>Java JDK 1.8</u></strong>, developed with <strong><u>NetBeans IDE 8.2</u></strong>.</p><br>\n<p>The implementation of this application is done for <strong>Singapore Polytechnic's Java Programming (JPRG) Module</strong>.</p><br>\n<p>This application is incorporated with <strong>Basic Features</strong> required by CA2's requirements:</p>\n<ul>\n<li>&ensp;<strong>Java Graphical User Interface (GUI)</strong> implementation using <i>JFrame, JLabel, JButton, etc</i>.</li>\n<li>&ensp;All basic features implemented in <strong>JPRG CA1</strong>, <i>Display All Students, Print Statistics, etc</i>.</li>\n<li>&ensp;<strong>File Input and Output (IO) system</strong>, including <strong>Serialization and Deserialization of Java Objects</strong>.</li>\n<li>&ensp;<strong>Java Inheritance and Polymorphism Feature</strong>, i.e. Local & International Student with getStudentInformation method added.</li>\n</ul>\n<p>This application is also incorporated with several <strong>Advanced Features</strong>:</p>\n<ul>\n<li><strong>Login System</strong>, this includes separate GUI for Admin / Non-Admin users.</li>\n<li><strong>User Account Accessibility</strong>, limits normal students access.</li>\n<li><strong>Security System</strong>, this is an added feature to store information for Login system prior to Serialization. This is done via <strong>hashing of passwords using SHA-512 algorithym</strong> with added randomness with the use of <strong>random Salt per password</strong>.</li>\n<li><strong>Password Change</strong>, this also changes the Serialized data by Deserializing and re-Serialized the new information.</li>\n<li>(Carried over from CA1) <strong>Sound Player System</strong></li>\n<li>(Carried over from CA1) <strong>User Activity Logger</strong></li>\n<li>(Carried over from CA1) <strong>Statistics Report Export</strong> improved for <strong>choosing export location</strong> on local storage.</li>\n</ul>\n<p>To start using the application, start navigating through all the tabs to experiment with its functions.</p>\n</html>");
+        lblText.setToolTipText(null);
+        lblText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        javax.swing.GroupLayout panelTextLayout = new javax.swing.GroupLayout(panelText);
+        panelText.setLayout(panelTextLayout);
+        panelTextLayout.setHorizontalGroup(
+            panelTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTextLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblText, javax.swing.GroupLayout.DEFAULT_SIZE, 953, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelTextLayout.setVerticalGroup(
+            panelTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTextLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblText, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+
+        lblDeveloper.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblDeveloper.setText("Developed by: Yam Kar Lok");
+        lblDeveloper.setToolTipText(null);
+
+        javax.swing.GroupLayout panelWelcomeLayout = new javax.swing.GroupLayout(panelWelcome);
+        panelWelcome.setLayout(panelWelcomeLayout);
+        panelWelcomeLayout.setHorizontalGroup(
+            panelWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelWelcomeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelWelcomeLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblDeveloper, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelWelcomeLayout.createSequentialGroup()
+                        .addGroup(panelWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panelWelcomeLayout.setVerticalGroup(
+            panelWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelWelcomeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(lblDeveloper)
+                .addContainerGap())
+        );
+
+        tabpaneMain.addTab("Welcome Page", panelWelcome);
+
+        panelDisplay.setToolTipText(null);
+
+        lblTitleDisplay.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTitleDisplay.setText("All Students Information:");
+        lblTitleDisplay.setToolTipText(null);
+
+        panelDisplayInfo.setToolTipText(null);
+        panelDisplayInfo.setMaximumSize(new java.awt.Dimension(975, 495));
+        panelDisplayInfo.setMinimumSize(new java.awt.Dimension(975, 495));
+        panelDisplayInfo.setPreferredSize(new java.awt.Dimension(975, 495));
+
+        scrollpaneTable.setToolTipText(null);
+
+        tableDisplayInfo.setModel(StudentManagement.displayAllStudents());
+        tableDisplayInfo.setToolTipText(null);
+        scrollpaneTable.setViewportView(tableDisplayInfo);
+
+        javax.swing.GroupLayout panelDisplayInfoLayout = new javax.swing.GroupLayout(panelDisplayInfo);
+        panelDisplayInfo.setLayout(panelDisplayInfoLayout);
+        panelDisplayInfoLayout.setHorizontalGroup(
+            panelDisplayInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollpaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
+        );
+        panelDisplayInfoLayout.setVerticalGroup(
+            panelDisplayInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollpaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+        );
+
+        btnRefreshDisplay.setBackground(java.awt.Color.blue);
+        btnRefreshDisplay.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnRefreshDisplay.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshDisplay.setText("REFRESH");
+        btnRefreshDisplay.setToolTipText(null);
+        btnRefreshDisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshDisplayActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelDisplayLayout = new javax.swing.GroupLayout(panelDisplay);
+        panelDisplay.setLayout(panelDisplayLayout);
+        panelDisplayLayout.setHorizontalGroup(
+            panelDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDisplayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelDisplayInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelDisplayLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(lblTitleDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRefreshDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+        panelDisplayLayout.setVerticalGroup(
+            panelDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDisplayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTitleDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                    .addComponent(btnRefreshDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(panelDisplayInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        tabpaneMain.addTab("Display All Students", panelDisplay);
+
+        panelStatistics.setToolTipText(null);
+
+        lblTitleStats.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTitleStats.setText("Students Statistics:");
+        lblTitleStats.setToolTipText(null);
+
+        btnRefreshStats.setBackground(java.awt.Color.blue);
+        btnRefreshStats.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnRefreshStats.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshStats.setText("REFRESH");
+        btnRefreshStats.setToolTipText(null);
+        btnRefreshStats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshStatsActionPerformed(evt);
+            }
+        });
+
+        txtStats.setEditable(false);
+        txtStats.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtStats.setText(StudentManagement.printStatistics());
+        txtStats.setToolTipText(null);
+        jScrollPane1.setViewportView(txtStats);
+
+        jPanel1.setToolTipText(null);
+
+        lblTitleExport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTitleExport.setText("Export Statistics");
+        lblTitleExport.setToolTipText(null);
+
+        lblTextExport.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTextExport.setText("<html>\nThis will export all student information into a <strong>Comma-Separated Values, CSV File</strong>.<br>\nTo export simply click the <strong>EXPORT</strong> Button and choose the desired export location. <br>\nEnsure that you have permission in the chosen file location.\n</html>");
+        lblTextExport.setToolTipText(null);
+        lblTextExport.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        btnExportStats.setBackground(java.awt.Color.blue);
+        btnExportStats.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnExportStats.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportStats.setText("EXPORT");
+        btnExportStats.setToolTipText(null);
+        btnExportStats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportStatsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblTitleExport, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblTextExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addComponent(btnExportStats, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitleExport, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExportStats, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTextExport, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        javax.swing.GroupLayout panelStatisticsLayout = new javax.swing.GroupLayout(panelStatistics);
+        panelStatistics.setLayout(panelStatisticsLayout);
+        panelStatisticsLayout.setHorizontalGroup(
+            panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStatisticsLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelStatisticsLayout.createSequentialGroup()
+                        .addComponent(lblTitleStats, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRefreshStats, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)))
+                .addGap(45, 45, 45))
+        );
+        panelStatisticsLayout.setVerticalGroup(
+            panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStatisticsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRefreshStats, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(lblTitleStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(70, Short.MAX_VALUE))
+        );
+
+        tabpaneMain.addTab("Statistics", panelStatistics);
+
+        panelSearchStudent.setToolTipText(null);
+
+        lblTitleSearch.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTitleSearch.setText("Search:");
+        lblTitleSearch.setToolTipText(null);
+
+        txtSearch.setToolTipText(null);
+        txtSearch.setMinimumSize(new java.awt.Dimension(380, 40));
+        txtSearch.setPreferredSize(new java.awt.Dimension(380, 40));
+
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jprg_assignment/search.png"))); // NOI18N
+        btnSearch.setToolTipText(null);
+        btnSearch.setBorderPainted(false);
+        btnSearch.setMaximumSize(new java.awt.Dimension(40, 40));
+        btnSearch.setMinimumSize(new java.awt.Dimension(40, 40));
+        btnSearch.setPreferredSize(new java.awt.Dimension(40, 40));
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        btnGroupSearch.add(radioStudents);
+        radioStudents.setSelected(true);
+        radioStudents.setText("By Students");
+        radioStudents.setToolTipText(null);
+        radioStudents.setMaximumSize(new java.awt.Dimension(150, 40));
+        radioStudents.setMinimumSize(new java.awt.Dimension(150, 40));
+        radioStudents.setPreferredSize(new java.awt.Dimension(150, 40));
+
+        btnGroupSearch.add(radioModule);
+        radioModule.setText("By Module");
+        radioModule.setToolTipText(null);
+        radioModule.setMaximumSize(new java.awt.Dimension(150, 40));
+        radioModule.setMinimumSize(new java.awt.Dimension(150, 40));
+        radioModule.setPreferredSize(new java.awt.Dimension(150, 40));
+
+        panelSearchInfo.setToolTipText(null);
+
+        txtSearchLog.setEditable(false);
+        txtSearchLog.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtSearchLog.setToolTipText(null);
+        scrollpaneMessages.setViewportView(txtSearchLog);
+
+        lblMessages.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblMessages.setText("Search Log Messages:");
+        lblMessages.setToolTipText(null);
+
+        btnExportLog.setBackground(java.awt.Color.blue);
+        btnExportLog.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnExportLog.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportLog.setText("EXPORT LOG");
+        btnExportLog.setToolTipText(null);
+        btnExportLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportLogActionPerformed(evt);
+            }
+        });
+
+        panelStudentDisplay.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Student 0 of 0", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        panelStudentDisplay.setToolTipText(null);
+
+        lblStudentName.setText("Name:");
+        lblStudentName.setToolTipText(null);
+
+        txtStudentName.setEditable(false);
+        txtStudentName.setToolTipText(null);
+
+        btnPreviousStudent.setText("Previous");
+        btnPreviousStudent.setToolTipText(null);
+        btnPreviousStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreviousStudentActionPerformed(evt);
+            }
+        });
+
+        lblStudentAdminNo.setText("Admin #:");
+        lblStudentAdminNo.setToolTipText(null);
+
+        txtStudentAdminNo.setEditable(false);
+        txtStudentAdminNo.setToolTipText(null);
+
+        btnNextStudent.setText("Next");
+        btnNextStudent.setToolTipText(null);
+        btnNextStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextStudentActionPerformed(evt);
+            }
+        });
+
+        lblStudentCourse.setText("Course:");
+        lblStudentCourse.setToolTipText(null);
+
+        txtStudentCourse.setEditable(false);
+        txtStudentCourse.setToolTipText(null);
+
+        btnFirstStudent.setText("First");
+        btnFirstStudent.setToolTipText(null);
+        btnFirstStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstStudentActionPerformed(evt);
+            }
+        });
+
+        lblStudentGPA.setText("GPA:");
+        lblStudentGPA.setToolTipText(null);
+
+        txtStudentGPA.setEditable(false);
+        txtStudentGPA.setToolTipText(null);
+
+        btnLastStudent.setText("Last");
+        btnLastStudent.setToolTipText(null);
+        btnLastStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastStudentActionPerformed(evt);
+            }
+        });
+
+        lblStudentInfo.setText("Other Info:");
+        lblStudentInfo.setToolTipText(null);
+
+        txtStudentInfo.setEditable(false);
+        txtStudentInfo.setToolTipText(null);
+
+        javax.swing.GroupLayout panelStudentDisplayLayout = new javax.swing.GroupLayout(panelStudentDisplay);
+        panelStudentDisplay.setLayout(panelStudentDisplayLayout);
+        panelStudentDisplayLayout.setHorizontalGroup(
+            panelStudentDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStudentDisplayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelStudentDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelStudentDisplayLayout.createSequentialGroup()
+                        .addComponent(lblStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnPreviousStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelStudentDisplayLayout.createSequentialGroup()
+                        .addComponent(lblStudentAdminNo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtStudentAdminNo, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnNextStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelStudentDisplayLayout.createSequentialGroup()
+                        .addComponent(lblStudentCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtStudentCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnFirstStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelStudentDisplayLayout.createSequentialGroup()
+                        .addComponent(lblStudentGPA, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtStudentGPA, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnLastStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelStudentDisplayLayout.createSequentialGroup()
+                        .addComponent(lblStudentInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtStudentInfo)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelStudentDisplayLayout.setVerticalGroup(
+            panelStudentDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStudentDisplayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelStudentDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtStudentName)
+                    .addComponent(lblStudentName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPreviousStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelStudentDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtStudentAdminNo)
+                    .addComponent(lblStudentAdminNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNextStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelStudentDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtStudentCourse)
+                    .addComponent(lblStudentCourse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFirstStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelStudentDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtStudentGPA)
+                    .addComponent(lblStudentGPA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLastStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelStudentDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtStudentInfo)
+                    .addComponent(lblStudentInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelModuleDisplay.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Module 0 of 0", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        panelModuleDisplay.setToolTipText(null);
+
+        lblModuleCode.setText("Module Code:");
+        lblModuleCode.setToolTipText(null);
+
+        txtModuleCode.setEditable(false);
+        txtModuleCode.setToolTipText(null);
+
+        btnPreviousModule.setText("Previous");
+        btnPreviousModule.setToolTipText(null);
+        btnPreviousModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreviousModuleActionPerformed(evt);
+            }
+        });
+
+        lblModuleName.setText("Module Name:");
+        lblModuleName.setToolTipText(null);
+
+        txtModuleName.setEditable(false);
+        txtModuleName.setToolTipText(null);
+
+        btnNextModule.setText("Next");
+        btnNextModule.setToolTipText(null);
+        btnNextModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextModuleActionPerformed(evt);
+            }
+        });
+
+        lblStudentName3.setText("Credit Unit:");
+        lblStudentName3.setToolTipText(null);
+
+        txtModuleCU.setEditable(false);
+        txtModuleCU.setToolTipText(null);
+
+        btnFirstModule.setText("First");
+        btnFirstModule.setToolTipText(null);
+        btnFirstModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstModuleActionPerformed(evt);
+            }
+        });
+
+        lblStudentName4.setText("Marks:");
+        lblStudentName4.setToolTipText(null);
+
+        txtModuleMarks.setEditable(false);
+        txtModuleMarks.setToolTipText(null);
+
+        btnLastModule.setText("Last");
+        btnLastModule.setToolTipText(null);
+        btnLastModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastModuleActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelModuleDisplayLayout = new javax.swing.GroupLayout(panelModuleDisplay);
+        panelModuleDisplay.setLayout(panelModuleDisplayLayout);
+        panelModuleDisplayLayout.setHorizontalGroup(
+            panelModuleDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModuleDisplayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelModuleDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelModuleDisplayLayout.createSequentialGroup()
+                        .addComponent(lblModuleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtModuleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnPreviousModule, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelModuleDisplayLayout.createSequentialGroup()
+                        .addComponent(lblModuleName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtModuleName, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnNextModule, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelModuleDisplayLayout.createSequentialGroup()
+                        .addComponent(lblStudentName3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtModuleCU, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnFirstModule, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelModuleDisplayLayout.createSequentialGroup()
+                        .addComponent(lblStudentName4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtModuleMarks, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnLastModule, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelModuleDisplayLayout.setVerticalGroup(
+            panelModuleDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModuleDisplayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelModuleDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtModuleCode)
+                    .addComponent(lblModuleCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPreviousModule, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelModuleDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtModuleName)
+                    .addComponent(lblModuleName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNextModule, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelModuleDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtModuleCU)
+                    .addComponent(lblStudentName3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFirstModule, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelModuleDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtModuleMarks)
+                    .addComponent(lblStudentName4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLastModule, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnResetSearch.setBackground(java.awt.Color.red);
+        btnResetSearch.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnResetSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnResetSearch.setText("RESET");
+        btnResetSearch.setToolTipText(null);
+        btnResetSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetSearchActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelSearchInfoLayout = new javax.swing.GroupLayout(panelSearchInfo);
+        panelSearchInfo.setLayout(panelSearchInfoLayout);
+        panelSearchInfoLayout.setHorizontalGroup(
+            panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSearchInfoLayout.createSequentialGroup()
+                .addGroup(panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelSearchInfoLayout.createSequentialGroup()
+                        .addComponent(lblMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExportLog))
+                    .addComponent(scrollpaneMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSearchInfoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelStudentDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelSearchInfoLayout.createSequentialGroup()
+                                .addComponent(panelModuleDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSearchInfoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnResetSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+        panelSearchInfoLayout.setVerticalGroup(
+            panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSearchInfoLayout.createSequentialGroup()
+                .addGroup(panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSearchInfoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnExportLog))
+                        .addGap(18, 18, 18)
+                        .addComponent(scrollpaneMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSearchInfoLayout.createSequentialGroup()
+                        .addComponent(panelStudentDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelModuleDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnResetSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelSearchStudentLayout = new javax.swing.GroupLayout(panelSearchStudent);
+        panelSearchStudent.setLayout(panelSearchStudentLayout);
+        panelSearchStudentLayout.setHorizontalGroup(
+            panelSearchStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSearchStudentLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(panelSearchInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
+            .addGroup(panelSearchStudentLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(panelSearchStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitleSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelSearchStudentLayout.createSequentialGroup()
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81)
+                        .addComponent(radioStudents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radioModule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(150, Short.MAX_VALUE))
+        );
+        panelSearchStudentLayout.setVerticalGroup(
+            panelSearchStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSearchStudentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitleSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelSearchStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioModule, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioStudents, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(panelSearchInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+
+        tabpaneMain.addTab("Search", panelSearchStudent);
+
+        panelSettings.setToolTipText(null);
+
+        lblProfileImage.setToolTipText(null);
+
+        lblNameProfile.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblNameProfile.setText("Name");
+        lblNameProfile.setToolTipText(null);
+
+        btnChangePW.setBackground(java.awt.Color.blue);
+        btnChangePW.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnChangePW.setForeground(new java.awt.Color(255, 255, 255));
+        btnChangePW.setText("UPDATE");
+        btnChangePW.setToolTipText(null);
+        btnChangePW.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangePWActionPerformed(evt);
+            }
+        });
+
+        lblPassword.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblPassword.setText("Password:");
+        lblPassword.setToolTipText(null);
+
+        lblConfirmPassword.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblConfirmPassword.setText("Confirm Password:");
+        lblConfirmPassword.setToolTipText(null);
+
+        lblChangePW.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblChangePW.setText("Change Password");
+        lblChangePW.setToolTipText(null);
+
+        txtNewPW.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNewPW.setToolTipText(null);
+
+        txtNewPWConfirm.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNewPWConfirm.setToolTipText(null);
+
+        btnLogOut.setBackground(java.awt.Color.red);
+        btnLogOut.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnLogOut.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogOut.setText("LOG OUT");
+        btnLogOut.setToolTipText(null);
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelSettingsLayout = new javax.swing.GroupLayout(panelSettings);
+        panelSettings.setLayout(panelSettingsLayout);
+        panelSettingsLayout.setHorizontalGroup(
+            panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(lblProfileImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSettingsLayout.createSequentialGroup()
+                        .addComponent(lblNameProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsLayout.createSequentialGroup()
+                        .addComponent(lblChangePW, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsLayout.createSequentialGroup()
+                        .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelSettingsLayout.createSequentialGroup()
+                                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblConfirmPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNewPWConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelSettingsLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnChangePW, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(161, 161, 161))))
+        );
+        panelSettingsLayout.setVerticalGroup(
+            panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblProfileImage, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelSettingsLayout.createSequentialGroup()
+                        .addComponent(lblNameProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97)
+                        .addComponent(lblChangePW, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNewPW)
+                            .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNewPWConfirm)
+                            .addComponent(lblConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnChangePW, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(66, Short.MAX_VALUE))
+        );
+
+        tabpaneMain.addTab("Profile Settings", panelSettings);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jLabel1)
-                .addContainerGap(249, Short.MAX_VALUE))
+            .addComponent(tabpaneMain)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(119, 119, 119))
+            .addComponent(tabpaneMain)
         );
+
+        tabpaneMain.getAccessibleContext().setAccessibleName("");
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    // <editor-fold defaultstate="collapsed" desc="Display Refresh Button">
+    private void btnRefreshDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshDisplayActionPerformed
+        tableDisplayInfo.setModel(StudentManagement.displayAllStudents());
+    }//GEN-LAST:event_btnRefreshDisplayActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Stats Refresh Button">
+    private void btnRefreshStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshStatsActionPerformed
+        txtStats.setText(StudentManagement.printStatistics());
+    }//GEN-LAST:event_btnRefreshStatsActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Stats Export Button">
+    private void btnExportStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportStatsActionPerformed
+        JFileChooser JFileChooser = new JFileChooser();
+        JFileChooser.showSaveDialog(this);
+        File saveFile = JFileChooser.getSelectedFile();
+        if (saveFile != null) {
+            saveFile = new File(saveFile.toString() + ".csv");
+            IOSystem.generateReport(saveFile, StudentManagement.getStudentList());
+            IOSystem.openFile(saveFile.toString());
+        }
+    }//GEN-LAST:event_btnExportStatsActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Search Log Export Button">
+    private void btnExportLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportLogActionPerformed
+        JFileChooser JFileChooser = new JFileChooser();
+        JFileChooser.showSaveDialog(this);
+        File saveFile = JFileChooser.getSelectedFile();
+        if (saveFile != null) {
+            saveFile = new File(saveFile.toString() + ".log");
+            IOSystem.exportLog(saveFile, txtSearchLog.getText());
+            IOSystem.openFile(saveFile.toString());
+        }
+    }//GEN-LAST:event_btnExportLogActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Search Button">
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        Date date = new Date();
+        String searchLog = txtSearchLog.getText();
+        String query = txtSearch.getText().trim();
+        String logHeader, searchResult;
+        final String SEPARATOR = "\n==========================\n\n";
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if (query.isEmpty()) {
+            logHeader = "Search Failed: Search Query is empty!";
+            searchResult = "N/A";
+        } else if ((query.equalsIgnoreCase("full") || query.equalsIgnoreCase("all")) && radioStudents.isSelected()) {
+            this.studentSearch = StudentManagement.getStudentList();
+            logHeader = "Search Success!";
+            searchResult = this.studentSearch.size() + " matching user(s) found!\n";
+            for (int i = 0; i < this.studentSearch.size(); i++) {
+                searchResult += "\n" + this.studentSearch.get(i).getName();
+            }
+            this.studentPage = 1;
+            this.modulePage = 1;
+            repaintPanels();
+        } else {
+            if (radioStudents.isSelected()) {
+                this.studentSearch = StudentManagement.searchStudent((boolean) this.userObj[3], (String) this.userObj[1], query);
+                if (this.studentSearch.isEmpty()) {
+                    logHeader = "Search Failed!";
+                    searchResult = "No result found.";
+                } else {
+                    logHeader = "Search Success!";
+                    searchResult = this.studentSearch.size() + " matching user(s) found!\n";
+                    for (int i = 0; i < this.studentSearch.size(); i++) {
+                        searchResult += "\n" + this.studentSearch.get(i).getName();
+                    }
+                    this.studentPage = 1;
+                    this.modulePage = 1;
+                    repaintPanels();
+                }
+            } else if (radioModule.isSelected()) {
+                this.moduleSearch = StudentManagement.searchModule(query);
+                if (this.moduleSearch.isEmpty()) {
+                    logHeader = "Search Failed!";
+                    searchResult = "No student taking " + query.toUpperCase() + ".";
+                } else {
+                    logHeader = "Search Success!";
+                    double totalMarks = 0.0;
+                    for (int i = 0; i < moduleSearch.size(); i++) {
+                        totalMarks += moduleSearch.get(i).getMarks();
+                        System.out.println(moduleSearch.get(i).getMarks());
+                    }
+                    searchResult = "There are " + moduleSearch.size() + " student(s) taking "
+                            + query.toUpperCase() + " module.\nThe average marks for "
+                            + query.toUpperCase() + " is " + String.format("%.2f", (totalMarks / moduleSearch.size()));
+                }
+            } else {
+                logHeader = "Search Failed: No search type selected!";
+                searchResult = "";
+            }
+        }
+        Date endTime = new Date();
+        String searchTimestamp = sdf.format(endTime);
+        long elapsedTime = endTime.getTime() - date.getTime();
+        searchLog += logHeader + "\n" + searchTimestamp + " (Search duration: " + elapsedTime + " ms)"
+                + "\n\n" + searchResult + "\n" + SEPARATOR;
+        if ((boolean) this.userObj[3]) {
+            txtSearchLog.setText(searchLog);
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Repaint Panels Method">
+    private void repaintPanels() {
+        ((TitledBorder) panelStudentDisplay.getBorder()).setTitle("Student " + this.studentPage + " of " + this.studentSearch.size());
+        ((TitledBorder) panelModuleDisplay.getBorder()).setTitle("Module " + this.modulePage + " of " + this.studentSearch.get(this.studentPage - 1).getModuleList().size());
+        txtStudentName.setText(this.studentSearch.get(this.studentPage - 1).getName());
+        txtStudentAdminNo.setText("P" + this.studentSearch.get(this.studentPage - 1).getAdminNumber());
+        txtStudentCourse.setText(this.studentSearch.get(this.studentPage - 1).getCourse());
+        txtStudentGPA.setText(this.studentSearch.get(this.studentPage - 1).getGpa());
+        txtStudentInfo.setText(this.studentSearch.get(this.studentPage - 1).getStudentInformation());
+        txtModuleCode.setText(this.studentSearch.get(this.studentPage - 1).getModuleList().get(this.modulePage - 1).getCode());
+        txtModuleName.setText(this.studentSearch.get(this.studentPage - 1).getModuleList().get(this.modulePage - 1).getName());
+        txtModuleCU.setText(this.studentSearch.get(this.studentPage - 1).getModuleList().get(this.modulePage - 1).getCreditUnit() + "");
+        txtModuleMarks.setText(this.studentSearch.get(this.studentPage - 1).getModuleList().get(this.modulePage - 1).getMarks() + "");
+        panelStudentDisplay.repaint();
+        panelModuleDisplay.repaint();
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Reset Button">
+    private void btnResetSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetSearchActionPerformed
+        if (userObj[3].equals(true)) {
+            this.studentSearch = null;
+            this.moduleSearch = null;
+            txtSearch.setText("");
+            txtSearchLog.setText("");
+        }
+        ((TitledBorder) panelStudentDisplay.getBorder()).setTitle("Student 0 of 0");
+        panelStudentDisplay.repaint();
+        ((TitledBorder) panelModuleDisplay.getBorder()).setTitle("Module 0 of 0");
+        panelModuleDisplay.repaint();
+        txtStudentName.setText("");
+        txtStudentAdminNo.setText("");
+        txtStudentCourse.setText("");
+        txtStudentGPA.setText("");
+        txtStudentInfo.setText("");
+        txtModuleCode.setText("");
+        txtModuleName.setText("");
+        txtModuleCU.setText("");
+        txtModuleMarks.setText("");
+    }//GEN-LAST:event_btnResetSearchActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Student Previous">
+    private void btnPreviousStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousStudentActionPerformed
+        if (this.studentPage > 1) {
+            this.studentPage -= 1;
+            this.modulePage = 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnPreviousStudentActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Student Next">
+    private void btnNextStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextStudentActionPerformed
+        if (this.studentPage < this.studentSearch.size()) {
+            this.studentPage += 1;
+            this.modulePage = 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnNextStudentActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Student First">
+    private void btnFirstStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstStudentActionPerformed
+        if (this.studentPage != 1) {
+            this.studentPage = 1;
+            this.modulePage = 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnFirstStudentActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Student Last">
+    private void btnLastStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastStudentActionPerformed
+        if (this.studentPage != this.studentSearch.size()) {
+            this.studentPage = this.studentSearch.size();
+            this.modulePage = 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnLastStudentActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Module Previous">
+    private void btnPreviousModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousModuleActionPerformed
+        if (this.modulePage > 1) {
+            this.modulePage -= 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnPreviousModuleActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Module Next">
+    private void btnNextModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextModuleActionPerformed
+        if (this.modulePage < this.studentSearch.get(this.studentPage - 1).getModuleList().size()) {
+            this.modulePage += 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnNextModuleActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Module First">
+    private void btnFirstModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstModuleActionPerformed
+        if (this.modulePage != 1) {
+            this.modulePage = 1;
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnFirstModuleActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Module Last">
+    private void btnLastModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastModuleActionPerformed
+        if (this.modulePage != this.studentSearch.get(this.studentPage - 1).getModuleList().size()) {
+            this.modulePage = this.studentSearch.get(this.studentPage - 1).getModuleList().size();
+            repaintPanels();
+        }
+    }//GEN-LAST:event_btnLastModuleActionPerformed
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Log Out">
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        // Log Program termination
+        UserActivityLogger.infoLog("User logged out.");
+        this.dispose();
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Change Password">
+    private void btnChangePWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePWActionPerformed
+        String password1 = String.valueOf(txtNewPW.getPassword());
+        String password2 = String.valueOf(txtNewPWConfirm.getPassword());
+        if (password1.equals(password2)) {
+            IOSystem.credentialChange(password1, (String)this.userObj[1]);
+            JOptionPane.showMessageDialog(null, "Password Updated!");
+        } else {
+            JOptionPane.showMessageDialog(null, 
+                    "Password Update Failed!", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnChangePWActionPerformed
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Static Admin Menu">
     public static void adminMenu(Object[] userObj) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -81,13 +1177,13 @@ public class AdminMainMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -98,8 +1194,80 @@ public class AdminMainMenu extends javax.swing.JFrame {
             }
         });
     }
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnChangePW;
+    private javax.swing.JButton btnExportLog;
+    private javax.swing.JButton btnExportStats;
+    private javax.swing.JButton btnFirstModule;
+    private javax.swing.JButton btnFirstStudent;
+    private javax.swing.ButtonGroup btnGroupSearch;
+    private javax.swing.JButton btnLastModule;
+    private javax.swing.JButton btnLastStudent;
+    private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnNextModule;
+    private javax.swing.JButton btnNextStudent;
+    private javax.swing.JButton btnPreviousModule;
+    private javax.swing.JButton btnPreviousStudent;
+    private javax.swing.JButton btnRefreshDisplay;
+    private javax.swing.JButton btnRefreshStats;
+    private javax.swing.JButton btnResetSearch;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblChangePW;
+    private javax.swing.JLabel lblConfirmPassword;
+    private javax.swing.JLabel lblDeveloper;
+    private javax.swing.JLabel lblMessages;
+    private javax.swing.JLabel lblModuleCode;
+    private javax.swing.JLabel lblModuleName;
+    private javax.swing.JLabel lblNameProfile;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblProfileImage;
+    private javax.swing.JLabel lblStudentAdminNo;
+    private javax.swing.JLabel lblStudentCourse;
+    private javax.swing.JLabel lblStudentGPA;
+    private javax.swing.JLabel lblStudentInfo;
+    private javax.swing.JLabel lblStudentName;
+    private javax.swing.JLabel lblStudentName3;
+    private javax.swing.JLabel lblStudentName4;
+    private javax.swing.JLabel lblText;
+    private javax.swing.JLabel lblTextExport;
+    private javax.swing.JLabel lblTitleDisplay;
+    private javax.swing.JLabel lblTitleExport;
+    private javax.swing.JLabel lblTitleSearch;
+    private javax.swing.JLabel lblTitleStats;
+    private javax.swing.JLabel lblWelcome;
+    private javax.swing.JPanel panelDisplay;
+    private javax.swing.JPanel panelDisplayInfo;
+    private javax.swing.JPanel panelModuleDisplay;
+    private javax.swing.JPanel panelSearchInfo;
+    private javax.swing.JPanel panelSearchStudent;
+    private javax.swing.JPanel panelSettings;
+    private javax.swing.JPanel panelStatistics;
+    private javax.swing.JPanel panelStudentDisplay;
+    private javax.swing.JPanel panelText;
+    private javax.swing.JPanel panelWelcome;
+    private javax.swing.JRadioButton radioModule;
+    private javax.swing.JRadioButton radioStudents;
+    private javax.swing.JScrollPane scrollpaneMessages;
+    private javax.swing.JScrollPane scrollpaneTable;
+    private javax.swing.JTable tableDisplayInfo;
+    private javax.swing.JTabbedPane tabpaneMain;
+    private javax.swing.JTextField txtModuleCU;
+    private javax.swing.JTextField txtModuleCode;
+    private javax.swing.JTextField txtModuleMarks;
+    private javax.swing.JTextField txtModuleName;
+    private javax.swing.JPasswordField txtNewPW;
+    private javax.swing.JPasswordField txtNewPWConfirm;
+    private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextPane txtSearchLog;
+    private javax.swing.JTextPane txtStats;
+    private javax.swing.JTextField txtStudentAdminNo;
+    private javax.swing.JTextField txtStudentCourse;
+    private javax.swing.JTextField txtStudentGPA;
+    private javax.swing.JTextField txtStudentInfo;
+    private javax.swing.JTextField txtStudentName;
     // End of variables declaration//GEN-END:variables
 }
