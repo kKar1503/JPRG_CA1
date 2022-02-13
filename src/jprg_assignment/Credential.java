@@ -13,7 +13,7 @@ public class Credential implements Serializable{
     
     public Credential(String username, String password, String name, boolean admin, boolean access, byte[] salt) {
         this.username = username;
-        this.password = password;
+        this.password = Authentication.hashPassword(password, salt);
         this.name = name;
         this.admin = admin;
         this.access = access;

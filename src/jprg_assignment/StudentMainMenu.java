@@ -22,6 +22,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         this.userObj = userObj;
         // Prevent table's column from being movable
         lblWelcome.setText("Welcome, " + userObj[1].toString() + "!");
+        lblNameProfile.setText(this.userObj[1].toString());
         ImageIcon icon = new ImageIcon("./users/" + this.userObj[1] + ".png");
         Image image = icon.getImage();
         Image resizedImg = image.getScaledInstance(250, 500, java.awt.Image.SCALE_SMOOTH);

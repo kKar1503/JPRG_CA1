@@ -79,6 +79,8 @@ public class Authentication {
     private static boolean verifyPassword(String passwordInput, byte[] salt, String hashedPassword) {
         boolean verification = false;
         String hashedInput = hashPassword(passwordInput, salt);
+        System.out.println(hashedInput);
+        System.out.println(hashedPassword);
         if (hashedPassword.equals(hashedInput)) {
             verification = true;
             UserActivityLogger.infoLog("Password verfied true.");

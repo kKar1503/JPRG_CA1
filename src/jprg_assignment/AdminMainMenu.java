@@ -2,9 +2,12 @@ package jprg_assignment;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -22,6 +25,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
         this.userObj = userObj;
         // Prevent table's column from being movable
         lblWelcome.setText("Welcome, " + userObj[1].toString() + "!");
+        lblNameProfile.setText(this.userObj[1].toString());
         ImageIcon icon = new ImageIcon("./users/" + this.userObj[1] + ".png");
         Image image = icon.getImage();
         Image resizedImg = image.getScaledInstance(250, 500, java.awt.Image.SCALE_SMOOTH);
@@ -128,6 +132,19 @@ public class AdminMainMenu extends javax.swing.JFrame {
         txtNewPW = new javax.swing.JPasswordField();
         txtNewPWConfirm = new javax.swing.JPasswordField();
         btnLogOut = new javax.swing.JButton();
+        panelAdmin = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        btnAddAccount = new javax.swing.JButton();
+        lblUsernameRegister = new javax.swing.JLabel();
+        txtUsernameRegister = new javax.swing.JTextField();
+        lblPasswordRegister = new javax.swing.JLabel();
+        txtPasswordRegister = new javax.swing.JTextField();
+        lblNameRegister = new javax.swing.JLabel();
+        txtNameRegister = new javax.swing.JTextField();
+        lblAccountType = new javax.swing.JLabel();
+        cbAccountType = new javax.swing.JComboBox<>();
+        btnClear = new javax.swing.JButton();
+        btnImportDefault = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Singapore Polytechnic - Mini Student System");
@@ -203,7 +220,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
                 .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addComponent(lblDeveloper)
                 .addContainerGap())
         );
@@ -335,7 +352,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblTextExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
                         .addComponent(btnExportStats, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(62, 62, 62))))
         );
@@ -377,7 +394,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         tabpaneMain.addTab("Statistics", panelStatistics);
@@ -766,7 +783,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
                         .addComponent(radioStudents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(radioModule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
         panelSearchStudentLayout.setVerticalGroup(
             panelSearchStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -854,7 +871,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
                             .addGroup(panelSettingsLayout.createSequentialGroup()
                                 .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblConfirmPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                                    .addComponent(lblConfirmPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -888,10 +905,156 @@ public class AdminMainMenu extends javax.swing.JFrame {
                         .addComponent(btnChangePW, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         tabpaneMain.addTab("Profile Settings", panelSettings);
+
+        panelAdmin.setToolTipText(null);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Account Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel2.setToolTipText(null);
+
+        btnAddAccount.setBackground(java.awt.Color.blue);
+        btnAddAccount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnAddAccount.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddAccount.setText("ADD ACCOUNT");
+        btnAddAccount.setToolTipText(null);
+        btnAddAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAccountActionPerformed(evt);
+            }
+        });
+
+        lblUsernameRegister.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblUsernameRegister.setText("Username:");
+        lblUsernameRegister.setToolTipText(null);
+
+        txtUsernameRegister.setToolTipText(null);
+
+        lblPasswordRegister.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblPasswordRegister.setText("Password:");
+        lblPasswordRegister.setToolTipText(null);
+
+        txtPasswordRegister.setToolTipText(null);
+
+        lblNameRegister.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblNameRegister.setText("Name:");
+        lblNameRegister.setToolTipText(null);
+
+        txtNameRegister.setToolTipText(null);
+
+        lblAccountType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblAccountType.setText("Account Type:");
+        lblAccountType.setToolTipText(null);
+
+        cbAccountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Limited", "Full Access", "Admin" }));
+        cbAccountType.setToolTipText(null);
+
+        btnClear.setBackground(java.awt.Color.red);
+        btnClear.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnClear.setText("CLEAR ALL ACCOUNTS");
+        btnClear.setToolTipText(null);
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        btnImportDefault.setBackground(java.awt.Color.blue);
+        btnImportDefault.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnImportDefault.setForeground(new java.awt.Color(255, 255, 255));
+        btnImportDefault.setText("IMPORT DEFAULT ACCOUNTS");
+        btnImportDefault.setToolTipText(null);
+        btnImportDefault.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportDefaultActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(23, Short.MAX_VALUE)
+                        .addComponent(btnAddAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(lblPasswordRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(68, 68, 68)
+                                    .addComponent(txtPasswordRegister, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(lblUsernameRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(68, 68, 68)
+                                    .addComponent(txtUsernameRegister)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNameRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblAccountType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(68, 68, 68)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNameRegister)
+                                    .addComponent(cbAccountType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnImportDefault, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(27, 27, 27))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsernameRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsernameRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPasswordRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPasswordRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNameRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNameRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblAccountType, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(cbAccountType))
+                .addGap(33, 33, 33)
+                .addComponent(btnAddAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnImportDefault, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelAdminLayout = new javax.swing.GroupLayout(panelAdmin);
+        panelAdmin.setLayout(panelAdminLayout);
+        panelAdminLayout.setHorizontalGroup(
+            panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdminLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(530, Short.MAX_VALUE))
+        );
+        panelAdminLayout.setVerticalGroup(
+            panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdminLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+
+        tabpaneMain.addTab("Admin", null, panelAdmin, null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -971,7 +1134,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
             repaintPanels();
         } else {
             if (radioStudents.isSelected()) {
-                this.studentSearch = StudentManagement.searchStudent((boolean) this.userObj[3], (String) this.userObj[1], query);
+                this.studentSearch = StudentManagement.searchStudent(true, null, query);
                 if (this.studentSearch.isEmpty()) {
                     logHeader = "Search Failed!";
                     searchResult = "No result found.";
@@ -1011,9 +1174,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
         long elapsedTime = endTime.getTime() - date.getTime();
         searchLog += logHeader + "\n" + searchTimestamp + " (Search duration: " + elapsedTime + " ms)"
                 + "\n\n" + searchResult + "\n" + SEPARATOR;
-        if ((boolean) this.userObj[3]) {
-            txtSearchLog.setText(searchLog);
-        }
+        txtSearchLog.setText(searchLog);
     }//GEN-LAST:event_btnSearchActionPerformed
     // </editor-fold>
 
@@ -1037,12 +1198,10 @@ public class AdminMainMenu extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Reset Button">
     private void btnResetSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetSearchActionPerformed
-        if (userObj[3].equals(true)) {
-            this.studentSearch = null;
-            this.moduleSearch = null;
-            txtSearch.setText("");
-            txtSearchLog.setText("");
-        }
+        this.studentSearch = null;
+        this.moduleSearch = null;
+        txtSearch.setText("");
+        txtSearchLog.setText("");
         ((TitledBorder) panelStudentDisplay.getBorder()).setTitle("Student 0 of 0");
         panelStudentDisplay.repaint();
         ((TitledBorder) panelModuleDisplay.getBorder()).setTitle("Module 0 of 0");
@@ -1161,6 +1320,43 @@ public class AdminMainMenu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnChangePWActionPerformed
     // </editor-fold>
+    
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        IOSystem.emptyCredentials();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
+        String username = txtUsernameRegister.getText().trim();
+        String password = txtPasswordRegister.getText().trim();
+        String name = txtNameRegister.getText().trim();
+        String userType = cbAccountType.getSelectedItem().toString();
+        boolean isAdmin, hasAccess;
+        if (userType.equals("Admin")) {
+            isAdmin = true;
+            hasAccess = true;
+        } else if (userType.equals("Full Access")) {
+            isAdmin = false;
+            hasAccess = true;
+        } else {
+            isAdmin = false;
+            hasAccess = false;
+        }
+        Credential newAccount = new Credential(username, password, name, isAdmin, hasAccess, Authentication.saltGenerator());
+        IOSystem.credentialSerialization(newAccount);
+        JOptionPane.showMessageDialog(null, "New account created!");
+        txtUsernameRegister.setText("");
+        txtPasswordRegister.setText("");
+        txtNameRegister.setText("");
+        cbAccountType.setSelectedIndex(0);
+    }//GEN-LAST:event_btnAddAccountActionPerformed
+
+    private void btnImportDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportDefaultActionPerformed
+        try {
+            IOSystem.reinitializeDefaultAccounts();
+        } catch (IOException ex) {
+            UserActivityLogger.errLog("Unable to reinitialize accounts.", ex);
+        }
+    }//GEN-LAST:event_btnImportDefaultActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc="Static Admin Menu">
     public static void adminMenu(Object[] userObj) {
@@ -1197,12 +1393,15 @@ public class AdminMainMenu extends javax.swing.JFrame {
     // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddAccount;
     private javax.swing.JButton btnChangePW;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnExportLog;
     private javax.swing.JButton btnExportStats;
     private javax.swing.JButton btnFirstModule;
     private javax.swing.JButton btnFirstStudent;
     private javax.swing.ButtonGroup btnGroupSearch;
+    private javax.swing.JButton btnImportDefault;
     private javax.swing.JButton btnLastModule;
     private javax.swing.JButton btnLastStudent;
     private javax.swing.JButton btnLogOut;
@@ -1214,8 +1413,11 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnRefreshStats;
     private javax.swing.JButton btnResetSearch;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JComboBox<String> cbAccountType;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAccountType;
     private javax.swing.JLabel lblChangePW;
     private javax.swing.JLabel lblConfirmPassword;
     private javax.swing.JLabel lblDeveloper;
@@ -1223,7 +1425,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblModuleCode;
     private javax.swing.JLabel lblModuleName;
     private javax.swing.JLabel lblNameProfile;
+    private javax.swing.JLabel lblNameRegister;
     private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPasswordRegister;
     private javax.swing.JLabel lblProfileImage;
     private javax.swing.JLabel lblStudentAdminNo;
     private javax.swing.JLabel lblStudentCourse;
@@ -1238,7 +1442,9 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitleExport;
     private javax.swing.JLabel lblTitleSearch;
     private javax.swing.JLabel lblTitleStats;
+    private javax.swing.JLabel lblUsernameRegister;
     private javax.swing.JLabel lblWelcome;
+    private javax.swing.JPanel panelAdmin;
     private javax.swing.JPanel panelDisplay;
     private javax.swing.JPanel panelDisplayInfo;
     private javax.swing.JPanel panelModuleDisplay;
@@ -1259,8 +1465,10 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private javax.swing.JTextField txtModuleCode;
     private javax.swing.JTextField txtModuleMarks;
     private javax.swing.JTextField txtModuleName;
+    private javax.swing.JTextField txtNameRegister;
     private javax.swing.JPasswordField txtNewPW;
     private javax.swing.JPasswordField txtNewPWConfirm;
+    private javax.swing.JTextField txtPasswordRegister;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextPane txtSearchLog;
     private javax.swing.JTextPane txtStats;
@@ -1269,5 +1477,6 @@ public class AdminMainMenu extends javax.swing.JFrame {
     private javax.swing.JTextField txtStudentGPA;
     private javax.swing.JTextField txtStudentInfo;
     private javax.swing.JTextField txtStudentName;
+    private javax.swing.JTextField txtUsernameRegister;
     // End of variables declaration//GEN-END:variables
 }
