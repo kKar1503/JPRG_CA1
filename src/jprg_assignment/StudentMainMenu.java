@@ -1,12 +1,12 @@
-
 package jprg_assignment;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFileChooser;
 
 public class StudentMainMenu extends javax.swing.JFrame {
+
     private Object[] studentObj;
 
     public StudentMainMenu(Object[] userObj) {
@@ -14,11 +14,16 @@ public class StudentMainMenu extends javax.swing.JFrame {
         this.studentObj = userObj;
         // Prevent table's column from being movable
         lblWelcome.setText("Welcome, " + userObj[1].toString() + "!");
-        if(this.studentObj[3].equals(true)) {
+        if (this.studentObj[3].equals(true)) {
             tableDisplayInfo.getTableHeader().setReorderingAllowed(false);
         } else {
             tabpaneMain.setEnabledAt(1, false);
             tabpaneMain.setEnabledAt(2, false);
+            txtSearch.setText("No query required.");
+            txtSearch.setEditable(false);
+            txtSearchLog.setText("Restricted Access: Your account is limited to only "
+                    + "your own information. Click on the search button to display your"
+                    + " own information.");
         }
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -492,19 +497,19 @@ public class StudentMainMenu extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     // <editor-fold defaultstate="collapsed" desc="Display Refresh Button">
     private void btnRefreshDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshDisplayActionPerformed
         tableDisplayInfo.setModel(StudentManagement.displayAllStudents());
     }//GEN-LAST:event_btnRefreshDisplayActionPerformed
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Stats Refresh Button">
     private void btnRefreshStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshStatsActionPerformed
         txtStats.setText(StudentManagement.printStatistics());
     }//GEN-LAST:event_btnRefreshStatsActionPerformed
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Stats Export Button">
     private void btnExportStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportStatsActionPerformed
         JFileChooser JFileChooser = new JFileChooser();
@@ -517,7 +522,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExportStatsActionPerformed
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Search Log Export Button">
     private void btnExportLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportLogActionPerformed
         JFileChooser JFileChooser = new JFileChooser();
@@ -530,17 +535,41 @@ public class StudentMainMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExportLogActionPerformed
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Search Button">
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        System.out.println("your mom");
+        Date date = new Date();
         String searchLog = txtSearchLog.getText();
-        String logHeader, searchTimestamp;
-        final String Separator = "\n==========================\n\n";
-        txtSearchLog.setText(Separator);
+        String logHeader, searchResult;
+        final String SEPARATOR = "\n==========================\n\n";
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String searchTimestamp = sdf.format(date);
+        if (txtSearch.getText().trim().isEmpty()) {
+            logHeader = "Search Failed: Search Query is empty!";
+            searchResult = "";
+        } else {
+            if (radioStudents.isSelected()) {
+                StudentManagement.searchStudent((boolean)this.studentObj[3], (String)this.studentObj[1], txtSearch.getText());
+                logHeader = "Search Success!";
+                searchResult = "";
+            } else if (radioModule.isSelected()) {
+                logHeader = "Search Success!";
+                searchResult = "";
+            } else {
+                logHeader = "Search Failed: No search type selected!";
+                searchResult = "";
+            }
+        }
+        Date endTime = new Date();
+        long elapsedTime = endTime.getTime() - date.getTime();
+        searchLog += logHeader + "\n" + endTime + " (Search duration: " + elapsedTime + " ms)"
+                + SEPARATOR + searchResult + SEPARATOR;
+        if ((boolean)this.studentObj[3]) {
+            txtSearchLog.setText(searchLog);
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Static Student Menu">
     public static void studentMenu(Object[] userObj) {
         /* Set the Nimbus look and feel */

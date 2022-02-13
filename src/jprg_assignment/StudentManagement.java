@@ -88,103 +88,34 @@ public class StudentManagement {
         return tableModel;
     }
 
-    public static void searchStudent(boolean fullAccess, String username) {
+    public static Student searchStudent(boolean fullAccess, String username, String query) {
         if (!studentList.isEmpty()) {
-            try {
                 String userInput;
 
                 if (fullAccess) {
-                    // Take in userInput with showInputDialog
-                    userInput = JOptionPane.showInputDialog(null,
-                            "Enter the Student name to search:\n(Search is not case-sensitive)",
-                            "Input",
-                            JOptionPane.QUESTION_MESSAGE);
+                    // Use query to search
+                    userInput = query;
                 } else {
                     // Limited access option
                     userInput = username;
                 }
 
-                // Initialize a boolean variable to handle no results found from search
-                boolean resultFound = false;
-
                 // For-loop to loop through studentList to find match with userInput
                 for (int i = 0; i < studentList.size(); i++) {
                     // Utilizing toLowerCase() to ensure search is not case-sensitive
                     if (studentList.get(i).getName().toLowerCase().equals(userInput.toLowerCase())) {
-                        //Initialize ArrayList for displayInfo to display on search
-                        ArrayList<Object[]> displayInfo = new ArrayList<>();
-                        Object[] tempArray = {
-                            studentList.get(i).getName(),
-                            studentList.get(i).getCourse(),
-                            "P" + studentList.get(i).getAdminNumber(),
-                            studentList.get(i).getModuleInfo()[0],
-                            studentList.get(i).getModuleMarks()[0],};
-                        displayInfo.add(tempArray);
-                        for (int j = 1; j < studentList.get(i).getModuleList().size(); j++) {
-                            Object[] tempArray2 = {
-                                null,
-                                null,
-                                null,
-                                studentList.get(i).getModuleInfo()[j],
-                                studentList.get(i).getModuleMarks()[j],};
-                            displayInfo.add(tempArray2);
-                        }
-                        Object[] separator = {
-                            null,
-                            null,
-                            null,
-                            null,
-                            null
-                        };
-                        displayInfo.add(separator);
-                        // Add additional row at the bottom of table to display GPA
-                        Object[] gpa = {
-                            null,
-                            null,
-                            null,
-                            "GPA:",
-                            studentList.get(i).getGpa()
-                        };
-                        displayInfo.add(gpa);
-
-                        // Initialize data from ArrayList into Array of Object Array and String
-                        // Array for column headers
-                        Object[][] rows = displayInfo.toArray(new Object[][]{});
-                        String[] cols = {
-                            "Name", "Course", "Admin Number", "Modules", "Marks"
-                        };
-
-                        UserActivityLogger.infoLog("User Searched for student: " + studentList.get(i).getName());
-
-                        // Display all information generated using JOptionPane
-                        JOptionPane.showMessageDialog(null,
-                                generateTable(rows, cols),
-                                "Message",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        resultFound = true;
+                        return studentList.get(i);
                     }
                 }
                 // Handle no search result found
-                if (!resultFound) {
-                    SoundPlayer.errorSound();
-                    UserActivityLogger.errLog("User not found: " + userInput,
-                            new Throwable("User not found"));
-                    JOptionPane.showMessageDialog(null,
-                            "Cannot find the student \"" + userInput + "\"!!",
-                            "Info",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NullPointerException npe) {
-                // Handles user clicking cancel
-                UserActivityLogger.errLog("User selected cancel in searchStudent, returning to Main Menu", npe);
-            }
+                SoundPlayer.errorSound();
+                UserActivityLogger.errLog("User not found: " + userInput,
+                        new Throwable("User not found"));
+                return null;
         } else {
             SoundPlayer.errorSound();
-            JOptionPane.showMessageDialog(null,
-                    "There are no students in the system.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
             UserActivityLogger.errLog("No students found in system.", new Throwable("Missing Data"));
+            return null;
         }
     }
 
