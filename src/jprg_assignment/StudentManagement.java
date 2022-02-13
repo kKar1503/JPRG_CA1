@@ -4,9 +4,6 @@
 package jprg_assignment;
 
 import java.awt.Dimension;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -88,89 +85,62 @@ public class StudentManagement {
         return tableModel;
     }
 
-    public static Student searchStudent(boolean fullAccess, String username, String query) {
+    public static ArrayList<Student> searchStudent(boolean fullAccess, String username, String query) {
+        ArrayList<Student> results = new ArrayList<>();
         if (!studentList.isEmpty()) {
-                String userInput;
+            String userInput;
+            boolean resultFound = false;
 
-                if (fullAccess) {
-                    // Use query to search
-                    userInput = query;
-                } else {
-                    // Limited access option
-                    userInput = username;
-                }
+            if (fullAccess) {
+                // Use query to search
+                userInput = query;
+            } else {
+                // Limited access option
+                userInput = username;
+            }
 
-                // For-loop to loop through studentList to find match with userInput
-                for (int i = 0; i < studentList.size(); i++) {
-                    // Utilizing toLowerCase() to ensure search is not case-sensitive
-                    if (studentList.get(i).getName().toLowerCase().equals(userInput.toLowerCase())) {
-                        return studentList.get(i);
-                    }
+            // For-loop to loop through studentList to find match with userInput
+            for (int i = 0; i < studentList.size(); i++) {
+                // Utilizing contains with toLowerCase() to ensure search is not case-sensitive
+                if (studentList.get(i).getName().toLowerCase().contains(userInput.toLowerCase())) {
+                    results.add(studentList.get(i));
                 }
-                // Handle no search result found
+            }
+            // Handle no search result found
+            if (results.isEmpty()) {
                 SoundPlayer.errorSound();
                 UserActivityLogger.errLog("User not found: " + userInput,
                         new Throwable("User not found"));
-                return null;
-        } else {
-            SoundPlayer.errorSound();
-            UserActivityLogger.errLog("No students found in system.", new Throwable("Missing Data"));
-            return null;
-        }
-    }
-
-    public static void searchModule() {
-        if (!studentList.isEmpty()) {
-            try {
-                // Take in userInput with showInputDialog
-                String userInput = JOptionPane.showInputDialog(null,
-                        "Enter the Module name to search:\n(Search is not case-sensitive)",
-                        "Input",
-                        JOptionPane.QUESTION_MESSAGE);
-
-                // Initialize a integer variable to keep track of number of matching results found
-                int resultFound = 0;
-
-                // Initialize a double variable to sum all the matching results' marks
-                double totalMarks = 0;
-
-                // For-loop to loop through all students' moduleList to find matching modules
-                for (int i = 0; i < studentList.size(); i++) {
-                    for (int j = 0; j < studentList.get(i).getModuleList().size(); j++) {
-                        if (studentList.get(i).getModuleList().get(j).getName().toLowerCase().equals(userInput.toLowerCase())) {
-                            resultFound++;
-                            totalMarks += studentList.get(i).getModuleList().get(j).getMarks();
-                        }
-                    }
-                }
-
-                if (resultFound > 0) {
-                    double averageMarks = totalMarks / resultFound;
-                    JOptionPane.showMessageDialog(null,
-                            "There are " + resultFound + " student(s) taking " + userInput.toUpperCase()
-                            + " module.\n The average marks for " + userInput.toUpperCase()
-                            + " is " + String.format("%.1f", averageMarks),
-                            "Message",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    SoundPlayer.errorSound();
-                    JOptionPane.showMessageDialog(null,
-                            "No student taking " + userInput.toUpperCase() + ".",
-                            "Message",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (NullPointerException npe) {
-                // Handles user clicking cancel
-                UserActivityLogger.errLog("User selected cancel in searchModule, returning to Main Menu", npe);
             }
         } else {
             SoundPlayer.errorSound();
-            JOptionPane.showMessageDialog(null,
-                    "There are no students in the system.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
             UserActivityLogger.errLog("No students found in system.", new Throwable("Missing Data"));
         }
+        return results;
+    }
+
+    public static ArrayList<Module> searchModule(String query) {
+        ArrayList<Module> results = new ArrayList<>();
+        if (!studentList.isEmpty()) {
+
+            // For-loop to loop through all students' moduleList to find matching modules
+            for (int i = 0; i < studentList.size(); i++) {
+                for (int j = 0; j < studentList.get(i).getModuleList().size(); j++) {
+                    if (studentList.get(i).getModuleList().get(j).getName().equalsIgnoreCase(query)) {
+                        results.add(studentList.get(i).getModuleList().get(j));
+                    }
+                }
+            }
+            if (results.isEmpty()) {
+                SoundPlayer.errorSound();
+                UserActivityLogger.errLog("Module not found: " + query,
+                        new Throwable("Module not found"));
+            }
+        } else {
+            SoundPlayer.errorSound();
+            UserActivityLogger.errLog("No students found in system.", new Throwable("Missing Data"));
+        }
+        return results;
     }
 
     public static String printStatistics() {
