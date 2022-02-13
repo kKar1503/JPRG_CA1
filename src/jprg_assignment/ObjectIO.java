@@ -104,4 +104,50 @@ public class ObjectIO {
         }
         return null;
     }
+    
+    public static void initializeStudents() {
+        BufferedReader br;
+        String[] studentInfo;
+        int numberOfStudents, numberOfModules;
+        try {
+            br = new BufferedReader(new FileReader("Students.txt"));
+            numberOfStudents = Integer.parseInt(br.readLine().trim());
+            for (int i = 0; i < numberOfStudents; i++) {
+                ArrayList<Module> moduleList = new ArrayList<>();
+                studentInfo = br.readLine().split(";");
+                int count = 0;
+                numberOfModules = Integer.parseInt(studentInfo[3]);
+                while (count < numberOfModules) {
+                    Module m = new Module(studentInfo[4 + count * 4],
+                            studentInfo[5 + count * 4],
+                            Integer.parseInt(studentInfo[6 + count * 4]),
+                            Double.parseDouble(studentInfo[7 + count * 4]));
+                    moduleList.add(m);
+                    count++;
+                }
+                if (studentInfo[4 + numberOfModules * 4].equals("Local Student")) {
+                    Student student = new Student(studentInfo[0],
+                            studentInfo[1], 
+                            Integer.parseInt(studentInfo[2].substring(1)),
+                            moduleList);
+                    StudentManagement.getStudentList().add(student);
+                } else if (studentInfo[4 + numberOfModules * 4].equals("International Student")) {
+                    InternationalStudent student = new InternationalStudent(studentInfo[0],
+                            studentInfo[1], 
+                            Integer.parseInt(studentInfo[2].substring(1)),
+                            moduleList,
+                            Boolean.parseBoolean(studentInfo[studentInfo.length-1]));
+                    StudentManagement.getStudentList().add(student);
+                } else {
+                    UserActivityLogger.errLog("Unable to add student #" + (i+1), null);
+                }
+            }
+            br.close();
+            UserActivityLogger.infoLog("Students initialization completed.");
+        } catch (IOException e) {
+            UserActivityLogger.errLog("Unable to initialize students from students.txt", e);
+        } catch (NumberFormatException e) {
+            UserActivityLogger.errLog("Initialization file has error.", e);
+        } 
+    }
 }

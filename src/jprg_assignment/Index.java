@@ -25,7 +25,7 @@ public class Index {
         // Log Program Initation
         UserActivityLogger.infoLog("Program started");
         // Initialize Default Students
-        StudentManagement.initializeStudents();
+        ObjectIO.initializeStudents();
         // Initialize Default Users' Credentials
         getCredentials();
         

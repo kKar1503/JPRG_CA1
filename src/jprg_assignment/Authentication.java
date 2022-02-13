@@ -12,7 +12,7 @@ public class Authentication {
     
     public static Object[] authenticate(String username, String password) {
         // Return object[] for authentication
-        // Return types: boolean, 
+        // Return types: boolean, string, boolean, boolean
         // Boolean : User Exist in Database
         // String  : User's Name
         // Boolean : Admin User

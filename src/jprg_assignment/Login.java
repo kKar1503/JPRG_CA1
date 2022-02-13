@@ -312,7 +312,7 @@ public class Login extends javax.swing.JFrame {
                 // Log Program Initation
                 UserActivityLogger.infoLog("Program started");
                 // Initialize students
-                StudentManagement.initializeStudents();
+                ObjectIO.initializeStudents();
             }
         });
     }

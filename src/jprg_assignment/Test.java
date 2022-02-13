@@ -17,7 +17,7 @@ public class Test {
 //        ArrayList<Module> moduleList = new ArrayList<>(Arrays.asList(m1,m2));
 //        InternationalStudent s1 = new InternationalStudent("John Tan", "DISM", 2123131, moduleList, true);
 //        System.out.println("international student " + s1.getName());
-        StudentManagement.initializeStudents();
+        ObjectIO.initializeStudents();
     }
     
     public static void initializeCreds() {

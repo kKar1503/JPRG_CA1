@@ -8,8 +8,13 @@ public class StudentMainMenu extends javax.swing.JFrame {
         initComponents();
         this.studentObj = userObj;
         // Prevent table's column from being movable
-        tableDisplayInfo.getTableHeader().setReorderingAllowed(false);
         lblWelcome.setText("Welcome, " + userObj[1].toString() + "!");
+        if(this.studentObj[3].equals(true)) {
+            tableDisplayInfo.getTableHeader().setReorderingAllowed(false);
+        } else {
+            tabpaneMain.setEnabledAt(1, false);
+            tabpaneMain.setEnabledAt(2, false);
+        }
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -50,6 +55,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         scrollpaneTable = new javax.swing.JScrollPane();
         tableDisplayInfo = new javax.swing.JTable();
         btnRefresh = new javax.swing.JButton();
+        panelStatistics = new javax.swing.JPanel();
         panelSearchStudent = new javax.swing.JPanel();
         lblTitleSearch = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
@@ -60,7 +66,6 @@ public class StudentMainMenu extends javax.swing.JFrame {
         scrollpaneMessages = new javax.swing.JScrollPane();
         txtMessages = new javax.swing.JTextPane();
         lblMessages = new javax.swing.JLabel();
-        panelStatistics = new javax.swing.JPanel();
         panelSettings = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,7 +93,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         panelText.setPreferredSize(new java.awt.Dimension(975, 430));
 
         lblText.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblText.setText("<html>\n<p>This is an implementation of a student management system using <strong><u>Java JDK 1.8</u></strong>, developed with <strong><u>NetBeans IDE 8.2</u></strong>.</p><br>\n<p>The implementation of this application is done for <strong>Singapore Polytechnic's Java Programming (JPRG) Module</strong>.</p><br>\n<p>This application is incorporated with <strong>Basic Features</strong> required by CA2's requirements:</p>\n<ul>\n<li>&ensp;<strong>Java Graphical User Interface (GUI)</strong> implementation using <i>JFrame, JLabel, JButton, etc</i>.</li>\n<li>&ensp;All basic features implemented in <strong>JPRG CA1</strong>, <i>Display All Students, Print Statistics, etc</i>.</li>\n<li>&ensp;<strong>File Input and Output (IO) system</strong>, including <strong>Serialization and Deserialization of Java Objects</strong>.</li>\n<li>&ensp;<strong>Java Inheritance Feature</strong></li>\n</ul>\n<p>This application is also incorporated with several <strong>Advanced Features</strong>:</p>\n<ul>\n<li><strong>Login System</strong>, this includes separate GUI for Admin / Non-Admin users.</li>\n<li><strong>Security System</strong>, this is an added feature to store information for Login system prior to Serialization. This is done via <strong>hashing of passwords using SHA-512 algorithym</strong> with added randomness with the use of <strong>random Salt per password</strong>.</li>\n<li>(Not implemented) <strong>Image Upload System</strong></li>\n<li>(Carried over from CA1) <strong>Sound Player System</strong></li>\n<li>(Carried over from CA1) <strong>User Activity Logger</strong></li>\n<li>(Carried over from CA1) <strong>Input Verification</strong></li>\n<li>(Carried over from CA1) <strong>Statistics Report Export</strong></li>\n</ul>\n<p>To start using the application, start navigating through all the tabs to experiment with its functions.</p>\n</html>");
+        lblText.setText("<html>\n<p>This is an implementation of a student management system using <strong><u>Java JDK 1.8</u></strong>, developed with <strong><u>NetBeans IDE 8.2</u></strong>.</p><br>\n<p>The implementation of this application is done for <strong>Singapore Polytechnic's Java Programming (JPRG) Module</strong>.</p><br>\n<p>This application is incorporated with <strong>Basic Features</strong> required by CA2's requirements:</p>\n<ul>\n<li>&ensp;<strong>Java Graphical User Interface (GUI)</strong> implementation using <i>JFrame, JLabel, JButton, etc</i>.</li>\n<li>&ensp;All basic features implemented in <strong>JPRG CA1</strong>, <i>Display All Students, Print Statistics, etc</i>.</li>\n<li>&ensp;<strong>File Input and Output (IO) system</strong>, including <strong>Serialization and Deserialization of Java Objects</strong>.</li>\n<li>&ensp;<strong>Java Inheritance and Polymorphism Feature</strong>, i.e. Local & International Student with getStudentInformation method added.</li>\n</ul>\n<p>This application is also incorporated with several <strong>Advanced Features</strong>:</p>\n<ul>\n<li><strong>Login System</strong>, this includes separate GUI for Admin / Non-Admin users.</li>\n<li><strong>Security System</strong>, this is an added feature to store information for Login system prior to Serialization. This is done via <strong>hashing of passwords using SHA-512 algorithym</strong> with added randomness with the use of <strong>random Salt per password</strong>.</li>\n<li>(Not implemented) <strong>Image Upload System</strong></li>\n<li>(Carried over from CA1) <strong>Sound Player System</strong></li>\n<li>(Carried over from CA1) <strong>User Activity Logger</strong></li>\n<li>(Carried over from CA1) <strong>Input Verification</strong></li>\n<li>(Carried over from CA1) <strong>Statistics Report Export</strong></li>\n</ul>\n<p>To start using the application, start navigating through all the tabs to experiment with its functions.</p>\n</html>");
         lblText.setToolTipText(null);
         lblText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
@@ -215,6 +220,21 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         tabpaneMain.addTab("Display All Students", panelDisplay);
 
+        panelStatistics.setToolTipText(null);
+
+        javax.swing.GroupLayout panelStatisticsLayout = new javax.swing.GroupLayout(panelStatistics);
+        panelStatistics.setLayout(panelStatisticsLayout);
+        panelStatisticsLayout.setHorizontalGroup(
+            panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 995, Short.MAX_VALUE)
+        );
+        panelStatisticsLayout.setVerticalGroup(
+            panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 578, Short.MAX_VALUE)
+        );
+
+        tabpaneMain.addTab("Statistics", panelStatistics);
+
         panelSearchStudent.setToolTipText(null);
 
         lblTitleSearch.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -315,21 +335,6 @@ public class StudentMainMenu extends javax.swing.JFrame {
         );
 
         tabpaneMain.addTab("Search", panelSearchStudent);
-
-        panelStatistics.setToolTipText(null);
-
-        javax.swing.GroupLayout panelStatisticsLayout = new javax.swing.GroupLayout(panelStatistics);
-        panelStatistics.setLayout(panelStatisticsLayout);
-        panelStatisticsLayout.setHorizontalGroup(
-            panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
-        );
-        panelStatisticsLayout.setVerticalGroup(
-            panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 578, Short.MAX_VALUE)
-        );
-
-        tabpaneMain.addTab("Statistics", panelStatistics);
 
         panelSettings.setToolTipText(null);
 

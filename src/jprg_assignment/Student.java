@@ -92,4 +92,8 @@ public class Student implements Serializable {
         };
         return moduleMarks;
     }
+    
+    public String getStudentInformation() {
+        return "I am a student.";
+    }
 }

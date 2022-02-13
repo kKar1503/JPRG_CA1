@@ -18,59 +18,6 @@ import javax.swing.table.DefaultTableModel;
 public class StudentManagement {
     private static ArrayList<Student> studentList = new ArrayList<>();
 
-    public static void initializeStudents() {
-        BufferedReader br;
-        String[] studentInfo;
-        int numberOfStudents, numberOfModules;
-        try {
-            br = new BufferedReader(new FileReader("Students.txt"));
-            numberOfStudents = Integer.parseInt(br.readLine().trim());
-            for (int i = 0; i < numberOfStudents; i++) {
-                ArrayList<Module> moduleList = new ArrayList<>();
-                studentInfo = br.readLine().split(";");
-                int count = 0;
-                numberOfModules = Integer.parseInt(studentInfo[3]);
-                while (count < numberOfModules) {
-                    Module m = new Module(studentInfo[4 + count * 4],
-                            studentInfo[5 + count * 4],
-                            Integer.parseInt(studentInfo[6 + count * 4]),
-                            Double.parseDouble(studentInfo[7 + count * 4]));
-                    moduleList.add(m);
-                    count++;
-                }
-                if (studentInfo[4 + numberOfModules * 4].equals("Local Student")) {
-                    Student student = new Student(studentInfo[0],
-                            studentInfo[1], 
-                            Integer.parseInt(studentInfo[2].substring(1)),
-                            moduleList);
-                    studentList.add(student);
-                } else if (studentInfo[4 + numberOfModules * 4].equals("International Student")) {
-                    InternationalStudent student = new InternationalStudent(studentInfo[0],
-                            studentInfo[1], 
-                            Integer.parseInt(studentInfo[2].substring(1)),
-                            moduleList,
-                            Boolean.parseBoolean(studentInfo[studentInfo.length-1]));
-                    studentList.add(student);
-                } else {
-                    UserActivityLogger.errLog("Unable to add student #" + (i+1), null);
-                }
-            }
-            br.close();
-            for (int i = 0; i < 3; i++) {
-                System.out.println(studentList.get(i).getName());
-                System.out.println(studentList.get(i).getModuleList().size());
-            }
-            System.out.println(((InternationalStudent)studentList.get(2)).hasStudentPass());
-        } catch (IOException e) {
-            UserActivityLogger.errLog("Unable to initialize students from students.txt", e);
-        }
-    }
-    public static void objectIOInitializeStudents() {
-        studentList = ObjectIO.studentDeserialization();
-        
-        UserActivityLogger.infoLog("3 Default Students initialized");
-    }
-
     public static DefaultTableModel displayAllStudents() {
         if (!studentList.isEmpty()) {
             // Initialize ArrayList to store all information for display
@@ -79,7 +26,9 @@ public class StudentManagement {
             // For loop to fill in students' data from studentList into ArrayList
             for (int i = 0; i < studentList.size(); i++) {
                 Object[] tempArray = {
-                    studentList.get(i).getName(),
+                    studentList.get(i).getClass().equals(InternationalStudent.class) 
+                        ? studentList.get(i).getName() + " (International Student)" 
+                        : studentList.get(i).getName() + " (Local Student)",
                     studentList.get(i).getCourse(),
                     "P" + studentList.get(i).getAdminNumber(),
                     studentList.get(i).getModuleInfo()[0],
