@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,7 +24,7 @@ public class AdminMainMenu extends javax.swing.JFrame {
         // Prevent table's column from being movable
         lblWelcome.setText("Welcome, " + userObj[1].toString() + "!");
         lblNameProfile.setText(this.userObj[1].toString());
-        ImageIcon icon = new ImageIcon("./users/" + this.userObj[1] + ".png");
+        ImageIcon icon = new ImageIcon("./users/Super Admin.png");
         Image image = icon.getImage();
         Image resizedImg = image.getScaledInstance(250, 500, java.awt.Image.SCALE_SMOOTH);
         lblProfileImage.setIcon(new ImageIcon(resizedImg));

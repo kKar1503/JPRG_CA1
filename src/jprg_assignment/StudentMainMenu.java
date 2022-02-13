@@ -23,10 +23,16 @@ public class StudentMainMenu extends javax.swing.JFrame {
         // Prevent table's column from being movable
         lblWelcome.setText("Welcome, " + userObj[1].toString() + "!");
         lblNameProfile.setText(this.userObj[1].toString());
-        ImageIcon icon = new ImageIcon("./users/" + this.userObj[1] + ".png");
-        Image image = icon.getImage();
-        Image resizedImg = image.getScaledInstance(250, 500, java.awt.Image.SCALE_SMOOTH);
-        lblProfileImage.setIcon(new ImageIcon(resizedImg));
+        File iconFile = new File("./users/" + this.userObj[1] + ".png");
+        ImageIcon icon;
+        if (iconFile.exists()) {
+            icon = new ImageIcon("./users/" + this.userObj[1] + ".png");
+        } else {
+            icon = new ImageIcon("./users/Class Rep.png");
+        }
+            Image image = icon.getImage();
+            Image resizedImg = image.getScaledInstance(250, 500, java.awt.Image.SCALE_SMOOTH);
+            lblProfileImage.setIcon(new ImageIcon(resizedImg));
         if (this.userObj[3].equals(true)) {
             tableDisplayInfo.getTableHeader().setReorderingAllowed(false);
         } else {
