@@ -180,7 +180,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p&gt;This is an implementation of a student management system using &lt;strong&gt;&lt;u&gt;Java JDK 1.8&lt;/u&gt;&lt;/strong&gt;, developed with &lt;strong&gt;&lt;u&gt;NetBeans IDE 8.2&lt;/u&gt;&lt;/strong&gt;.&lt;/p&gt;&lt;br&gt;&#xa;&lt;p&gt;The implementation of this application is done for &lt;strong&gt;Singapore Polytechnic&apos;s Java Programming (JPRG) Module&lt;/strong&gt;.&lt;/p&gt;&lt;br&gt;&#xa;&lt;p&gt;This application is incorporated with &lt;strong&gt;Basic Features&lt;/strong&gt; required by CA2&apos;s requirements:&lt;/p&gt;&#xa;&lt;ul&gt;&#xa;&lt;li&gt;&amp;ensp;&lt;strong&gt;Java Graphical User Interface (GUI)&lt;/strong&gt; implementation using &lt;i&gt;JFrame, JLabel, JButton, etc&lt;/i&gt;.&lt;/li&gt;&#xa;&lt;li&gt;&amp;ensp;All basic features implemented in &lt;strong&gt;JPRG CA1&lt;/strong&gt;, &lt;i&gt;Display All Students, Print Statistics, etc&lt;/i&gt;.&lt;/li&gt;&#xa;&lt;li&gt;&amp;ensp;&lt;strong&gt;File Input and Output (IO) system&lt;/strong&gt;, including &lt;strong&gt;Serialization and Deserialization of Java Objects&lt;/strong&gt;.&lt;/li&gt;&#xa;&lt;li&gt;&amp;ensp;&lt;strong&gt;Java Inheritance and Polymorphism Feature&lt;/strong&gt;, i.e. Local &amp; International Student with getStudentInformation method added.&lt;/li&gt;&#xa;&lt;/ul&gt;&#xa;&lt;p&gt;This application is also incorporated with several &lt;strong&gt;Advanced Features&lt;/strong&gt;:&lt;/p&gt;&#xa;&lt;ul&gt;&#xa;&lt;li&gt;&lt;strong&gt;Login System&lt;/strong&gt;, this includes separate GUI for Admin / Non-Admin users.&lt;/li&gt;&#xa;&lt;li&gt;&lt;strong&gt;Security System&lt;/strong&gt;, this is an added feature to store information for Login system prior to Serialization. This is done via &lt;strong&gt;hashing of passwords using SHA-512 algorithym&lt;/strong&gt; with added randomness with the use of &lt;strong&gt;random Salt per password&lt;/strong&gt;.&lt;/li&gt;&#xa;&lt;li&gt;(Not implemented) &lt;strong&gt;Image Upload System&lt;/strong&gt;&lt;/li&gt;&#xa;&lt;li&gt;(Carried over from CA1) &lt;strong&gt;Sound Player System&lt;/strong&gt;&lt;/li&gt;&#xa;&lt;li&gt;(Carried over from CA1) &lt;strong&gt;User Activity Logger&lt;/strong&gt;&lt;/li&gt;&#xa;&lt;li&gt;(Carried over from CA1) &lt;strong&gt;Input Verification&lt;/strong&gt;&lt;/li&gt;&#xa;&lt;li&gt;(Carried over from CA1) &lt;strong&gt;Statistics Report Export&lt;/strong&gt; improved for &lt;strong&gt;choosing export location&lt;/strong&gt; on local storage.&lt;/li&gt;&#xa;&lt;/ul&gt;&#xa;&lt;p&gt;To start using the application, start navigating through all the tabs to experiment with its functions.&lt;/p&gt;&#xa;&lt;/html&gt;"/>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;p&gt;This is an implementation of a student management system using &lt;strong&gt;&lt;u&gt;Java JDK 1.8&lt;/u&gt;&lt;/strong&gt;, developed with &lt;strong&gt;&lt;u&gt;NetBeans IDE 8.2&lt;/u&gt;&lt;/strong&gt;.&lt;/p&gt;&lt;br&gt;&#xa;&lt;p&gt;The implementation of this application is done for &lt;strong&gt;Singapore Polytechnic&apos;s Java Programming (JPRG) Module&lt;/strong&gt;.&lt;/p&gt;&lt;br&gt;&#xa;&lt;p&gt;This application is incorporated with &lt;strong&gt;Basic Features&lt;/strong&gt; required by CA2&apos;s requirements:&lt;/p&gt;&#xa;&lt;ul&gt;&#xa;&lt;li&gt;&amp;ensp;&lt;strong&gt;Java Graphical User Interface (GUI)&lt;/strong&gt; implementation using &lt;i&gt;JFrame, JLabel, JButton, etc&lt;/i&gt;.&lt;/li&gt;&#xa;&lt;li&gt;&amp;ensp;All basic features implemented in &lt;strong&gt;JPRG CA1&lt;/strong&gt;, &lt;i&gt;Display All Students, Print Statistics, etc&lt;/i&gt;.&lt;/li&gt;&#xa;&lt;li&gt;&amp;ensp;&lt;strong&gt;File Input and Output (IO) system&lt;/strong&gt;, including &lt;strong&gt;Serialization and Deserialization of Java Objects&lt;/strong&gt;.&lt;/li&gt;&#xa;&lt;li&gt;&amp;ensp;&lt;strong&gt;Java Inheritance and Polymorphism Feature&lt;/strong&gt;, i.e. Local &amp; International Student with getStudentInformation method added.&lt;/li&gt;&#xa;&lt;/ul&gt;&#xa;&lt;p&gt;This application is also incorporated with several &lt;strong&gt;Advanced Features&lt;/strong&gt;:&lt;/p&gt;&#xa;&lt;ul&gt;&#xa;&lt;li&gt;&lt;strong&gt;Login System&lt;/strong&gt;, this includes separate GUI for Admin / Non-Admin users.&lt;/li&gt;&#xa;&lt;li&gt;&lt;strong&gt;User Account Accessibility&lt;/strong&gt;, limits normal students access.&lt;/li&gt;&#xa;&lt;li&gt;&lt;strong&gt;Security System&lt;/strong&gt;, this is an added feature to store information for Login system prior to Serialization. This is done via &lt;strong&gt;hashing of passwords using SHA-512 algorithym&lt;/strong&gt; with added randomness with the use of &lt;strong&gt;random Salt per password&lt;/strong&gt;.&lt;/li&gt;&#xa;&lt;li&gt;&lt;strong&gt;Password Change&lt;/strong&gt;, this also changes the Serialized data by Deserializing and re-Serialized the new information.&lt;/li&gt;&#xa;&lt;li&gt;(Carried over from CA1) &lt;strong&gt;Sound Player System&lt;/strong&gt;&lt;/li&gt;&#xa;&lt;li&gt;(Carried over from CA1) &lt;strong&gt;User Activity Logger&lt;/strong&gt;&lt;/li&gt;&#xa;&lt;li&gt;(Carried over from CA1) &lt;strong&gt;Statistics Report Export&lt;/strong&gt; improved for &lt;strong&gt;choosing export location&lt;/strong&gt; on local storage.&lt;/li&gt;&#xa;&lt;/ul&gt;&#xa;&lt;p&gt;To start using the application, start navigating through all the tabs to experiment with its functions.&lt;/p&gt;&#xa;&lt;/html&gt;"/>
                     <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="null" type="code"/>
                     </Property>
@@ -1250,15 +1250,190 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="995" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="lblProfileImage" min="-2" pref="250" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lblNameProfile" min="-2" pref="297" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lblChangePW" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="lblPassword" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="lblConfirmPassword" pref="220" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txtNewPW" min="-2" pref="252" max="-2" attributes="0"/>
+                                          <Component id="txtNewPWConfirm" min="-2" pref="252" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="btnLogOut" min="-2" pref="125" max="-2" attributes="0"/>
+                                          <Component id="btnChangePW" min="-2" pref="125" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="608" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblProfileImage" min="-2" pref="500" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="lblNameProfile" min="-2" pref="39" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+                              <Component id="lblChangePW" min="-2" pref="39" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtNewPW" max="32767" attributes="0"/>
+                                  <Component id="lblPassword" min="-2" pref="39" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtNewPWConfirm" max="32767" attributes="0"/>
+                                  <Component id="lblConfirmPassword" min="-2" pref="39" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnChangePW" min="-2" pref="52" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnLogOut" min="-2" pref="52" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="66" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="lblProfileImage">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="null" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblNameProfile">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Name"/>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="null" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnChangePW">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="0" id="blue" palette="1" red="0" type="palette"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="UPDATE"/>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="null" type="code"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChangePWActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblPassword">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Password:"/>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="null" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblConfirmPassword">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Confirm Password:"/>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="null" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblChangePW">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="18" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Change Password"/>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="null" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="txtNewPW">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="null" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="txtNewPWConfirm">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="null" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnLogOut">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="LOG OUT"/>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="null" type="code"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogOutActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
         </Container>
       </SubComponents>
     </Container>

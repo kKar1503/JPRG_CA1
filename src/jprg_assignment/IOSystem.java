@@ -59,16 +59,11 @@ public class IOSystem {
         return null;
     }
     
-    public static void credentialChange(String username, String password, String name) {
+    public static void credentialChange(String password, String name) {
         ArrayList<Credential> currentCredentials = credentialDeserialization();
         for (Credential credential: currentCredentials) {
-            if (credential.getUsername().equalsIgnoreCase(username)) {
-                if (password != null) {
-                    credential.setPassword(password);
-                }
-                if (name != null) {
-                    credential.setName(name);
-                }
+            if (credential.getName().equalsIgnoreCase(name)) {
+                credential.setPassword(password);
             }
         }
         try (ObjectOutputStream outStream = new ObjectOutputStream(

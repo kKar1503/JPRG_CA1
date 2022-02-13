@@ -1,10 +1,13 @@
 package jprg_assignment;
 
+import java.awt.Image;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 
 public class StudentMainMenu extends javax.swing.JFrame {
@@ -19,6 +22,10 @@ public class StudentMainMenu extends javax.swing.JFrame {
         this.studentObj = userObj;
         // Prevent table's column from being movable
         lblWelcome.setText("Welcome, " + userObj[1].toString() + "!");
+        ImageIcon icon = new ImageIcon("./users/" + studentObj[1] + ".png");
+        Image image = icon.getImage();
+        Image resizedImg = image.getScaledInstance(250, 500, java.awt.Image.SCALE_SMOOTH);
+        lblProfileImage.setIcon(new ImageIcon(resizedImg));
         if (this.studentObj[3].equals(true)) {
             tableDisplayInfo.getTableHeader().setReorderingAllowed(false);
         } else {
@@ -124,6 +131,15 @@ public class StudentMainMenu extends javax.swing.JFrame {
         btnLastModule = new javax.swing.JButton();
         btnResetSearch = new javax.swing.JButton();
         panelSettings = new javax.swing.JPanel();
+        lblProfileImage = new javax.swing.JLabel();
+        lblNameProfile = new javax.swing.JLabel();
+        btnChangePW = new javax.swing.JButton();
+        lblPassword = new javax.swing.JLabel();
+        lblConfirmPassword = new javax.swing.JLabel();
+        lblChangePW = new javax.swing.JLabel();
+        txtNewPW = new javax.swing.JPasswordField();
+        txtNewPWConfirm = new javax.swing.JPasswordField();
+        btnLogOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Singapore Polytechnic - Mini Student System");
@@ -150,7 +166,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         panelText.setPreferredSize(new java.awt.Dimension(975, 430));
 
         lblText.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblText.setText("<html>\n<p>This is an implementation of a student management system using <strong><u>Java JDK 1.8</u></strong>, developed with <strong><u>NetBeans IDE 8.2</u></strong>.</p><br>\n<p>The implementation of this application is done for <strong>Singapore Polytechnic's Java Programming (JPRG) Module</strong>.</p><br>\n<p>This application is incorporated with <strong>Basic Features</strong> required by CA2's requirements:</p>\n<ul>\n<li>&ensp;<strong>Java Graphical User Interface (GUI)</strong> implementation using <i>JFrame, JLabel, JButton, etc</i>.</li>\n<li>&ensp;All basic features implemented in <strong>JPRG CA1</strong>, <i>Display All Students, Print Statistics, etc</i>.</li>\n<li>&ensp;<strong>File Input and Output (IO) system</strong>, including <strong>Serialization and Deserialization of Java Objects</strong>.</li>\n<li>&ensp;<strong>Java Inheritance and Polymorphism Feature</strong>, i.e. Local & International Student with getStudentInformation method added.</li>\n</ul>\n<p>This application is also incorporated with several <strong>Advanced Features</strong>:</p>\n<ul>\n<li><strong>Login System</strong>, this includes separate GUI for Admin / Non-Admin users.</li>\n<li><strong>Security System</strong>, this is an added feature to store information for Login system prior to Serialization. This is done via <strong>hashing of passwords using SHA-512 algorithym</strong> with added randomness with the use of <strong>random Salt per password</strong>.</li>\n<li>(Not implemented) <strong>Image Upload System</strong></li>\n<li>(Carried over from CA1) <strong>Sound Player System</strong></li>\n<li>(Carried over from CA1) <strong>User Activity Logger</strong></li>\n<li>(Carried over from CA1) <strong>Input Verification</strong></li>\n<li>(Carried over from CA1) <strong>Statistics Report Export</strong> improved for <strong>choosing export location</strong> on local storage.</li>\n</ul>\n<p>To start using the application, start navigating through all the tabs to experiment with its functions.</p>\n</html>");
+        lblText.setText("<html>\n<p>This is an implementation of a student management system using <strong><u>Java JDK 1.8</u></strong>, developed with <strong><u>NetBeans IDE 8.2</u></strong>.</p><br>\n<p>The implementation of this application is done for <strong>Singapore Polytechnic's Java Programming (JPRG) Module</strong>.</p><br>\n<p>This application is incorporated with <strong>Basic Features</strong> required by CA2's requirements:</p>\n<ul>\n<li>&ensp;<strong>Java Graphical User Interface (GUI)</strong> implementation using <i>JFrame, JLabel, JButton, etc</i>.</li>\n<li>&ensp;All basic features implemented in <strong>JPRG CA1</strong>, <i>Display All Students, Print Statistics, etc</i>.</li>\n<li>&ensp;<strong>File Input and Output (IO) system</strong>, including <strong>Serialization and Deserialization of Java Objects</strong>.</li>\n<li>&ensp;<strong>Java Inheritance and Polymorphism Feature</strong>, i.e. Local & International Student with getStudentInformation method added.</li>\n</ul>\n<p>This application is also incorporated with several <strong>Advanced Features</strong>:</p>\n<ul>\n<li><strong>Login System</strong>, this includes separate GUI for Admin / Non-Admin users.</li>\n<li><strong>User Account Accessibility</strong>, limits normal students access.</li>\n<li><strong>Security System</strong>, this is an added feature to store information for Login system prior to Serialization. This is done via <strong>hashing of passwords using SHA-512 algorithym</strong> with added randomness with the use of <strong>random Salt per password</strong>.</li>\n<li><strong>Password Change</strong>, this also changes the Serialized data by Deserializing and re-Serialized the new information.</li>\n<li>(Carried over from CA1) <strong>Sound Player System</strong></li>\n<li>(Carried over from CA1) <strong>User Activity Logger</strong></li>\n<li>(Carried over from CA1) <strong>Statistics Report Export</strong> improved for <strong>choosing export location</strong> on local storage.</li>\n</ul>\n<p>To start using the application, start navigating through all the tabs to experiment with its functions.</p>\n</html>");
         lblText.setToolTipText(null);
         lblText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
@@ -784,15 +800,107 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         panelSettings.setToolTipText(null);
 
+        lblProfileImage.setToolTipText(null);
+
+        lblNameProfile.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblNameProfile.setText("Name");
+        lblNameProfile.setToolTipText(null);
+
+        btnChangePW.setBackground(java.awt.Color.blue);
+        btnChangePW.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnChangePW.setForeground(new java.awt.Color(255, 255, 255));
+        btnChangePW.setText("UPDATE");
+        btnChangePW.setToolTipText(null);
+        btnChangePW.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangePWActionPerformed(evt);
+            }
+        });
+
+        lblPassword.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblPassword.setText("Password:");
+        lblPassword.setToolTipText(null);
+
+        lblConfirmPassword.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblConfirmPassword.setText("Confirm Password:");
+        lblConfirmPassword.setToolTipText(null);
+
+        lblChangePW.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblChangePW.setText("Change Password");
+        lblChangePW.setToolTipText(null);
+
+        txtNewPW.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNewPW.setToolTipText(null);
+
+        txtNewPWConfirm.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNewPWConfirm.setToolTipText(null);
+
+        btnLogOut.setBackground(java.awt.Color.red);
+        btnLogOut.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnLogOut.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogOut.setText("LOG OUT");
+        btnLogOut.setToolTipText(null);
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelSettingsLayout = new javax.swing.GroupLayout(panelSettings);
         panelSettings.setLayout(panelSettingsLayout);
         panelSettingsLayout.setHorizontalGroup(
             panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
+            .addGroup(panelSettingsLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(lblProfileImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSettingsLayout.createSequentialGroup()
+                        .addComponent(lblNameProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsLayout.createSequentialGroup()
+                        .addComponent(lblChangePW, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsLayout.createSequentialGroup()
+                        .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelSettingsLayout.createSequentialGroup()
+                                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblConfirmPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNewPWConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelSettingsLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnChangePW, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(161, 161, 161))))
         );
         panelSettingsLayout.setVerticalGroup(
             panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addGroup(panelSettingsLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblProfileImage, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelSettingsLayout.createSequentialGroup()
+                        .addComponent(lblNameProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97)
+                        .addComponent(lblChangePW, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNewPW)
+                            .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNewPWConfirm)
+                            .addComponent(lblConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnChangePW, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         tabpaneMain.addTab("Profile Settings", panelSettings);
@@ -1038,6 +1146,34 @@ public class StudentMainMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLastModuleActionPerformed
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Log Out">
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        // Log Program termination
+        UserActivityLogger.infoLog("User logged out.");
+        this.dispose();
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Change Password">
+    private void btnChangePWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePWActionPerformed
+        String password1 = txtNewPW.getPassword().toString();
+        String password2 = txtNewPWConfirm.getPassword().toString();
+        if (password1.equals(password2)) {
+            String hashedPassword = Authentication.hashPassword(password1, Authentication.saltGenerator());
+            IOSystem.credentialChange(hashedPassword, (String)this.studentObj[1]);
+            JOptionPane.showMessageDialog(null, "Password Updated!");
+        } else {
+            JOptionPane.showMessageDialog(null, 
+                    "Password Update Failed!", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnChangePWActionPerformed
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Static Student Menu">
     public static void studentMenu(Object[] userObj) {
@@ -1074,6 +1210,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChangePW;
     private javax.swing.JButton btnExportLog;
     private javax.swing.JButton btnExportStats;
     private javax.swing.JButton btnFirstModule;
@@ -1081,6 +1218,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroupSearch;
     private javax.swing.JButton btnLastModule;
     private javax.swing.JButton btnLastStudent;
+    private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnNextModule;
     private javax.swing.JButton btnNextStudent;
     private javax.swing.JButton btnPreviousModule;
@@ -1091,10 +1229,15 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnSearch;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblChangePW;
+    private javax.swing.JLabel lblConfirmPassword;
     private javax.swing.JLabel lblDeveloper;
     private javax.swing.JLabel lblMessages;
     private javax.swing.JLabel lblModuleCode;
     private javax.swing.JLabel lblModuleName;
+    private javax.swing.JLabel lblNameProfile;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblProfileImage;
     private javax.swing.JLabel lblStudentAdminNo;
     private javax.swing.JLabel lblStudentCourse;
     private javax.swing.JLabel lblStudentGPA;
@@ -1129,6 +1272,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private javax.swing.JTextField txtModuleCode;
     private javax.swing.JTextField txtModuleMarks;
     private javax.swing.JTextField txtModuleName;
+    private javax.swing.JPasswordField txtNewPW;
+    private javax.swing.JPasswordField txtNewPWConfirm;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextPane txtSearchLog;
     private javax.swing.JTextPane txtStats;

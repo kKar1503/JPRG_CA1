@@ -247,10 +247,10 @@ public class Login extends javax.swing.JFrame {
         Object[] userObj = Authentication.authenticate(username, password);
         if (userObj[0].equals(true)) {
             if (userObj[2].equals(true)) {
-                this.setVisible(false);
+                this.dispose();
                 AdminMainMenu.adminMenu(userObj);
             } else {
-                this.setVisible(false);
+                this.dispose();
                 StudentMainMenu.studentMenu(userObj);
             }
         } else {
@@ -261,7 +261,7 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
     // </editor-fold>
-
+    
     // <editor-fold defaultstate="collapsed" desc="Cancel Button">
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // Student Data Serialization
