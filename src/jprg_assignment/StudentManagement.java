@@ -16,9 +16,16 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class StudentManagement {
+
     private static ArrayList<Student> studentList = new ArrayList<>();
 
     public static DefaultTableModel displayAllStudents() {
+        // Array for column headers
+        String[] cols = {
+            "Name", "Course", "Admin Number", "Modules", "Marks"
+        };
+        // Initialize tableModel
+        DefaultTableModel tableModel;
         if (!studentList.isEmpty()) {
             // Initialize ArrayList to store all information for display
             ArrayList<Object[]> displayInfo = new ArrayList<>();
@@ -26,9 +33,9 @@ public class StudentManagement {
             // For loop to fill in students' data from studentList into ArrayList
             for (int i = 0; i < studentList.size(); i++) {
                 Object[] tempArray = {
-                    studentList.get(i).getClass().equals(InternationalStudent.class) 
-                        ? studentList.get(i).getName() + " (International Student)" 
-                        : studentList.get(i).getName() + " (Local Student)",
+                    studentList.get(i) instanceof InternationalStudent
+                    ? studentList.get(i).getName() + " (International Student)"
+                    : studentList.get(i).getName() + " (Local Student)",
                     studentList.get(i).getCourse(),
                     "P" + studentList.get(i).getAdminNumber(),
                     studentList.get(i).getModuleInfo()[0],
@@ -56,32 +63,29 @@ public class StudentManagement {
             }
 
             // Initialize data from ArrayList into Array of Object Array and String
-            // Array for column headers
             Object[][] rows = displayInfo.toArray(new Object[][]{});
-            String[] cols = {
-                "Name", "Course", "Admin Number", "Modules", "Marks"
-            };
 
-            // Display all information generated using JOptionPane
+            // Display all information generated using tableModel
             UserActivityLogger.infoLog("Displayed all students' data.");
-            DefaultTableModel tableModel = new DefaultTableModel(rows, cols) {
+            tableModel = new DefaultTableModel(rows, cols) {
                 // Override isCellEditable to false
                 @Override
                 public boolean isCellEditable(int row, int column) {
                     return false;
                 }
             };
-
-            return tableModel;
         } else {
-            SoundPlayer.errorSound();
-            JOptionPane.showMessageDialog(null,
-                    "There are no students in the system.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
             UserActivityLogger.errLog("No students found in system.", new Throwable("Missing Data"));
-            return null;
+            tableModel = new DefaultTableModel(0, cols.length) {
+                // Override isCellEditable to false
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            tableModel.setColumnIdentifiers(cols);
         }
+        return tableModel;
     }
 
     public static void searchStudent(boolean fullAccess, String username) {
@@ -238,10 +242,10 @@ public class StudentManagement {
         }
     }
 
-    public static void printStatistics() {
+    public static String printStatistics() {
+        String returnString;
         if (!studentList.isEmpty()) {
-            String userInput;
-            int intUserInput = 0, numGoodStudent = 0, numBadStudent = 0;
+            int numGoodStudent = 0, numBadStudent = 0;
             for (int i = 0; i < studentList.size(); i++) {
                 double studentGpa = Double.parseDouble(studentList.get(i).getGpa());
                 if (studentGpa > 3.5) {
@@ -251,78 +255,27 @@ public class StudentManagement {
                 } else {
                     // Do Nothing
                 }
-                System.out.println(studentList.get(i).getGpa());
             }
             double percentGoodStudent = (double) numGoodStudent / studentList.size() * 100;
             double percentBadStudent = (double) numBadStudent / studentList.size() * 100;
-            try {
-                JOptionPane.showMessageDialog(null,
-                        "STATISTIC:\n"
-                        + "---------------------\n\n"
-                        + "There are " + studentList.size() + " students in total.\n\n"
-                        + "There is/are " + numGoodStudent + " student(s) "
-                        + "getting GPA greater than 3.5. This is "
-                        + String.format("%.2f", percentGoodStudent) + "%.\n\n"
-                        + "There is/are " + numBadStudent + " student(s) "
-                        + "getting GPA less than 1. This is "
-                        + String.format("%.2f", percentBadStudent) + "%.\n ",
-                        "Message",
-                        JOptionPane.INFORMATION_MESSAGE);
-                do {
-                    userInput = JOptionPane.showInputDialog(null,
-                            "Would you like to export the full student report into excel?\n\n"
-                            + "       1.  Confirm\n"
-                            + "       2.  Cancel\n ",
-                            "Export Report",
-                            JOptionPane.QUESTION_MESSAGE);
-                    if (!VerifyInput.isInt(userInput)[0]) {
-                        SoundPlayer.errorSound();
-                        // Handles empty input
-                        JOptionPane.showMessageDialog(null,
-                                "Missing Input! Please enter either 1 or 2.",
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE);
-                    } else if (!VerifyInput.isInt(userInput)[1]) {
-                        SoundPlayer.errorSound();
-                        // Handles non-integer Input
-                        JOptionPane.showMessageDialog(null,
-                                "Invalid input! Please enter only numeric value.",
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE);
-                    } else if (!(Integer.parseInt(userInput) == 1 || Integer.parseInt(userInput) == 2)) {
-                        SoundPlayer.errorSound();
-                        // Handles out of range input
-                        JOptionPane.showMessageDialog(null,
-                                "Invalid option! Please enter either 1 or 2.",
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        // Handles input choices
-                        intUserInput = Integer.parseInt(userInput);
-                        switch (intUserInput) {
-                            case 1:
-                                ReportExport.generateReport(studentList);
-                                UserActivityLogger.infoLog("User exported full student report.");
-                                break;
-                            case 2:
-                                JOptionPane.showMessageDialog(null,
-                                        "Returning to main menu...");
-                                break;
-                        }
-                    }
-                } while (!(intUserInput == 1 || intUserInput == 2));
-            } catch (NullPointerException npe) {
-                // Handles user clicking cancel
-                UserActivityLogger.errLog("User selected cancel in printStatistic, returning to Main Menu", npe);
-            }
+            returnString = "STATISTIC:\n"
+                    + "---------------------\n\n"
+                    + "There are " + studentList.size() + " students in total.\n\n"
+                    + "There is/are " + numGoodStudent + " student(s) "
+                    + "getting GPA greater than 3.5. This is "
+                    + String.format("%.2f", percentGoodStudent) + "%.\n\n"
+                    + "There is/are " + numBadStudent + " student(s) "
+                    + "getting GPA less than 1. This is "
+                    + String.format("%.2f", percentBadStudent) + "%.\n ";
         } else {
-            SoundPlayer.errorSound();
-            JOptionPane.showMessageDialog(null,
-                    "There are no students in the system.\nNo statistic to generate.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            returnString = "NO STUDENT IN DATABASE FOUND\n"
+                    + "---------------------\n\n"
+                    + "If you think there may be an error, "
+                    + "please check the Students.txt file for import or "
+                    + "check the UserActivity.log file.";
             UserActivityLogger.errLog("No students found in system.", new Throwable("Missing Data"));
         }
+        return returnString;
     }
 
     // Method returns Table in JScrollPane given row and col data

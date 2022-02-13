@@ -1,10 +1,12 @@
 
 package jprg_assignment;
 
+import java.awt.Desktop;
 import java.io.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
-public class ObjectIO {
+public class IOSystem {
     // File lists
     final private static File CREDENTIAL_FILE = new File("dat\\\\Credentials.dat");
     final private static File STUDENT_FILE = new File("dat\\\\Students.dat");
@@ -126,7 +128,7 @@ public class ObjectIO {
                     count++;
                 }
                 if (studentInfo[4 + numberOfModules * 4].equals("Local Student")) {
-                    Student student = new Student(studentInfo[0],
+                    LocalStudent student = new LocalStudent(studentInfo[0],
                             studentInfo[1], 
                             Integer.parseInt(studentInfo[2].substring(1)),
                             moduleList);
@@ -149,5 +151,72 @@ public class ObjectIO {
         } catch (NumberFormatException e) {
             UserActivityLogger.errLog("Initialization file has error.", e);
         } 
+    }
+    
+    public static void openFile(String file) {
+        try {
+            File path = new File(file);
+            Desktop.getDesktop().open(path);
+        } catch (IOException ioe) {
+            UserActivityLogger.errLog("Failed to open specified folder.", ioe);
+        }
+    }
+    
+    public static void generateReport(File file, ArrayList<Student> studentList) {
+        int num = 0;
+        
+        try {
+            // Setting up PrintWriter for creating csv
+            FileWriter fw = new FileWriter(file, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            
+            // Setting up header
+            pw.println("Student Name,Admin Number,Student Course,Student GPA,"
+                    + "Student Module Name,Student Module Code,Student Module Credit Unit,Student Module Marks,"
+                    + "Student Type,Has Student Pass");
+            
+            // Deconstructing information from Student ArrayList
+            for (int i = 0; i < studentList.size(); i++) {
+                for (int j = 0; j < studentList.get(i).getModuleList().size(); j++) {
+                    String studentType, studentPass;
+                    if (studentList.get(i) instanceof LocalStudent) {
+                        studentType = "Local Student";
+                        studentPass = "Not Applicable";
+                    } else if (studentList.get(i) instanceof InternationalStudent) {
+                        studentType = "International Student";
+                        if (((InternationalStudent)studentList.get(i)).hasStudentPass()) {
+                            studentPass = "True";
+                        } else {
+                            studentPass = "False";
+                        }
+                    } else {
+                        studentType = "Unknown";
+                        studentPass = "Not Applicable";
+                    }
+                    pw.println(studentList.get(i).getName() + ","
+                    + studentList.get(i).getAdminNumber() + ","
+                    + studentList.get(i).getCourse() + ","
+                    + studentList.get(i).getGpa() + ","
+                    + studentList.get(i).getModuleList().get(j).getName() + ","
+                    + studentList.get(i).getModuleList().get(j).getCode() + ","
+                    + studentList.get(i).getModuleList().get(j).getCreditUnit() + ","
+                    + studentList.get(i).getModuleList().get(j).getMarks() + ","
+                    + studentType + ","
+                    + studentPass);
+                }
+            }
+            
+            pw.flush();
+            pw.close();
+            
+            UserActivityLogger.infoLog("Successfully exported Full Student Reports to " + file.toString());
+        } catch (Exception e) {
+            UserActivityLogger.errLog("Export to csv failed.", e);
+            JOptionPane.showMessageDialog(null, 
+                    "Record not saved due to some error.\nCheck log file for more details.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

@@ -17,7 +17,7 @@ public class Test {
 //        ArrayList<Module> moduleList = new ArrayList<>(Arrays.asList(m1,m2));
 //        InternationalStudent s1 = new InternationalStudent("John Tan", "DISM", 2123131, moduleList, true);
 //        System.out.println("international student " + s1.getName());
-        ObjectIO.initializeStudents();
+        IOSystem.initializeStudents();
     }
     
     public static void initializeCreds() {
@@ -27,10 +27,10 @@ public class Test {
         Credential johntan = new Credential("johntan", Authentication.hashPassword("johntan123", salt1), "John Tan", false, false, salt1);
         Credential classrep = new Credential("classrep", Authentication.hashPassword("classrep123", salt2), "Class Rep", false, true, salt2);
         Credential admin = new Credential("superadmin", Authentication.hashPassword("king123!", salt3), "Super Admin", true, true, salt3);
-        ObjectIO.credentialSerialization(johntan);
-        ObjectIO.credentialSerialization(classrep);
-        ObjectIO.credentialSerialization(admin);
-        ArrayList<Credential> credentialList = ObjectIO.credentialDeserialization();
+        IOSystem.credentialSerialization(johntan);
+        IOSystem.credentialSerialization(classrep);
+        IOSystem.credentialSerialization(admin);
+        ArrayList<Credential> credentialList = IOSystem.credentialDeserialization();
         for (Credential credential: credentialList) {
             System.out.println(credential.getName());
         }

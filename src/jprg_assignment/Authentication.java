@@ -41,7 +41,7 @@ public class Authentication {
     }
     
     private static ArrayList<Credential> readCredentials(){
-        return ObjectIO.credentialDeserialization();
+        return IOSystem.credentialDeserialization();
     }
     
     // Salt generator to return random salt for each password

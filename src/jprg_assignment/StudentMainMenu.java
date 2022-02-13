@@ -1,6 +1,11 @@
 
 package jprg_assignment;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+
 public class StudentMainMenu extends javax.swing.JFrame {
     private Object[] studentObj;
 
@@ -54,8 +59,16 @@ public class StudentMainMenu extends javax.swing.JFrame {
         panelDisplayInfo = new javax.swing.JPanel();
         scrollpaneTable = new javax.swing.JScrollPane();
         tableDisplayInfo = new javax.swing.JTable();
-        btnRefresh = new javax.swing.JButton();
+        btnRefreshDisplay = new javax.swing.JButton();
         panelStatistics = new javax.swing.JPanel();
+        lblTitleStats = new javax.swing.JLabel();
+        btnRefreshStats = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtStats = new javax.swing.JTextPane();
+        jPanel1 = new javax.swing.JPanel();
+        lblTitleExport = new javax.swing.JLabel();
+        lblTextExport = new javax.swing.JLabel();
+        btnExport = new javax.swing.JButton();
         panelSearchStudent = new javax.swing.JPanel();
         lblTitleSearch = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
@@ -93,7 +106,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         panelText.setPreferredSize(new java.awt.Dimension(975, 430));
 
         lblText.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblText.setText("<html>\n<p>This is an implementation of a student management system using <strong><u>Java JDK 1.8</u></strong>, developed with <strong><u>NetBeans IDE 8.2</u></strong>.</p><br>\n<p>The implementation of this application is done for <strong>Singapore Polytechnic's Java Programming (JPRG) Module</strong>.</p><br>\n<p>This application is incorporated with <strong>Basic Features</strong> required by CA2's requirements:</p>\n<ul>\n<li>&ensp;<strong>Java Graphical User Interface (GUI)</strong> implementation using <i>JFrame, JLabel, JButton, etc</i>.</li>\n<li>&ensp;All basic features implemented in <strong>JPRG CA1</strong>, <i>Display All Students, Print Statistics, etc</i>.</li>\n<li>&ensp;<strong>File Input and Output (IO) system</strong>, including <strong>Serialization and Deserialization of Java Objects</strong>.</li>\n<li>&ensp;<strong>Java Inheritance and Polymorphism Feature</strong>, i.e. Local & International Student with getStudentInformation method added.</li>\n</ul>\n<p>This application is also incorporated with several <strong>Advanced Features</strong>:</p>\n<ul>\n<li><strong>Login System</strong>, this includes separate GUI for Admin / Non-Admin users.</li>\n<li><strong>Security System</strong>, this is an added feature to store information for Login system prior to Serialization. This is done via <strong>hashing of passwords using SHA-512 algorithym</strong> with added randomness with the use of <strong>random Salt per password</strong>.</li>\n<li>(Not implemented) <strong>Image Upload System</strong></li>\n<li>(Carried over from CA1) <strong>Sound Player System</strong></li>\n<li>(Carried over from CA1) <strong>User Activity Logger</strong></li>\n<li>(Carried over from CA1) <strong>Input Verification</strong></li>\n<li>(Carried over from CA1) <strong>Statistics Report Export</strong></li>\n</ul>\n<p>To start using the application, start navigating through all the tabs to experiment with its functions.</p>\n</html>");
+        lblText.setText("<html>\n<p>This is an implementation of a student management system using <strong><u>Java JDK 1.8</u></strong>, developed with <strong><u>NetBeans IDE 8.2</u></strong>.</p><br>\n<p>The implementation of this application is done for <strong>Singapore Polytechnic's Java Programming (JPRG) Module</strong>.</p><br>\n<p>This application is incorporated with <strong>Basic Features</strong> required by CA2's requirements:</p>\n<ul>\n<li>&ensp;<strong>Java Graphical User Interface (GUI)</strong> implementation using <i>JFrame, JLabel, JButton, etc</i>.</li>\n<li>&ensp;All basic features implemented in <strong>JPRG CA1</strong>, <i>Display All Students, Print Statistics, etc</i>.</li>\n<li>&ensp;<strong>File Input and Output (IO) system</strong>, including <strong>Serialization and Deserialization of Java Objects</strong>.</li>\n<li>&ensp;<strong>Java Inheritance and Polymorphism Feature</strong>, i.e. Local & International Student with getStudentInformation method added.</li>\n</ul>\n<p>This application is also incorporated with several <strong>Advanced Features</strong>:</p>\n<ul>\n<li><strong>Login System</strong>, this includes separate GUI for Admin / Non-Admin users.</li>\n<li><strong>Security System</strong>, this is an added feature to store information for Login system prior to Serialization. This is done via <strong>hashing of passwords using SHA-512 algorithym</strong> with added randomness with the use of <strong>random Salt per password</strong>.</li>\n<li>(Not implemented) <strong>Image Upload System</strong></li>\n<li>(Carried over from CA1) <strong>Sound Player System</strong></li>\n<li>(Carried over from CA1) <strong>User Activity Logger</strong></li>\n<li>(Carried over from CA1) <strong>Input Verification</strong></li>\n<li>(Carried over from CA1) <strong>Statistics Report Export</strong> improved for <strong>choosing export location</strong> on local storage.</li>\n</ul>\n<p>To start using the application, start navigating through all the tabs to experiment with its functions.</p>\n</html>");
         lblText.setToolTipText(null);
         lblText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
@@ -177,14 +190,14 @@ public class StudentMainMenu extends javax.swing.JFrame {
             .addComponent(scrollpaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
         );
 
-        btnRefresh.setBackground(java.awt.Color.blue);
-        btnRefresh.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
-        btnRefresh.setText("REFRESH");
-        btnRefresh.setToolTipText(null);
-        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+        btnRefreshDisplay.setBackground(java.awt.Color.blue);
+        btnRefreshDisplay.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnRefreshDisplay.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshDisplay.setText("REFRESH");
+        btnRefreshDisplay.setToolTipText(null);
+        btnRefreshDisplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshActionPerformed(evt);
+                btnRefreshDisplayActionPerformed(evt);
             }
         });
 
@@ -200,7 +213,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(lblTitleDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRefreshDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
         );
         panelDisplayLayout.setVerticalGroup(
@@ -208,12 +221,11 @@ public class StudentMainMenu extends javax.swing.JFrame {
             .addGroup(panelDisplayLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitleDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                     .addGroup(panelDisplayLayout.createSequentialGroup()
-                        .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                        .addGap(18, 28, Short.MAX_VALUE))
-                    .addGroup(panelDisplayLayout.createSequentialGroup()
-                        .addComponent(lblTitleDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)))
+                        .addComponent(btnRefreshDisplay)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addComponent(panelDisplayInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -222,15 +234,104 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         panelStatistics.setToolTipText(null);
 
+        lblTitleStats.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTitleStats.setText("Students Statistics:");
+        lblTitleStats.setToolTipText(null);
+
+        btnRefreshStats.setBackground(java.awt.Color.blue);
+        btnRefreshStats.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnRefreshStats.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshStats.setText("REFRESH");
+        btnRefreshStats.setToolTipText(null);
+        btnRefreshStats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshStatsActionPerformed(evt);
+            }
+        });
+
+        txtStats.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtStats.setText(StudentManagement.printStatistics());
+        txtStats.setToolTipText(null);
+        jScrollPane1.setViewportView(txtStats);
+
+        jPanel1.setToolTipText(null);
+
+        lblTitleExport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTitleExport.setText("Export Statistics");
+        lblTitleExport.setToolTipText(null);
+
+        lblTextExport.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTextExport.setText("<html>\nThis will export all student information into a <strong>Comma-Separated Values, CSV File</strong>.<br>\nTo export simply click the <strong>EXPORT</strong> Button and choose the desired export location. <br>\nEnsure that you have permission in the chosen file location.\n</html>");
+        lblTextExport.setToolTipText(null);
+        lblTextExport.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        btnExport.setBackground(java.awt.Color.blue);
+        btnExport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnExport.setForeground(new java.awt.Color(255, 255, 255));
+        btnExport.setText("EXPORT");
+        btnExport.setToolTipText(null);
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblTitleExport, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblTextExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitleExport, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTextExport, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout panelStatisticsLayout = new javax.swing.GroupLayout(panelStatistics);
         panelStatistics.setLayout(panelStatisticsLayout);
         panelStatisticsLayout.setHorizontalGroup(
             panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
+            .addGroup(panelStatisticsLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelStatisticsLayout.createSequentialGroup()
+                        .addComponent(lblTitleStats, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRefreshStats, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)))
+                .addGap(45, 45, 45))
         );
         panelStatisticsLayout.setVerticalGroup(
             panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 578, Short.MAX_VALUE)
+            .addGroup(panelStatisticsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRefreshStats)
+                    .addComponent(lblTitleStats, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         tabpaneMain.addTab("Statistics", panelStatistics);
@@ -273,7 +374,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         scrollpaneMessages.setViewportView(txtMessages);
 
         lblMessages.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblMessages.setText("Messages:");
+        lblMessages.setText("Search Results:");
         lblMessages.setToolTipText(null);
 
         javax.swing.GroupLayout panelSearchInfoLayout = new javax.swing.GroupLayout(panelSearchInfo);
@@ -283,7 +384,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
             .addGroup(panelSearchInfoLayout.createSequentialGroup()
                 .addGroup(panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(scrollpaneMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollpaneMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         panelSearchInfoLayout.setVerticalGroup(
@@ -292,8 +393,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(scrollpaneMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addComponent(scrollpaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelSearchStudentLayout = new javax.swing.GroupLayout(panelSearchStudent);
@@ -368,10 +468,27 @@ public class StudentMainMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    // <editor-fold defaultstate="collapsed" desc="Refresh Button">
-    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+    // <editor-fold defaultstate="collapsed" desc="Display Refresh Button">
+    private void btnRefreshDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshDisplayActionPerformed
         tableDisplayInfo.setModel(StudentManagement.displayAllStudents());
-    }//GEN-LAST:event_btnRefreshActionPerformed
+    }//GEN-LAST:event_btnRefreshDisplayActionPerformed
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Stats Refresh Button">
+    private void btnRefreshStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshStatsActionPerformed
+        txtStats.setText(StudentManagement.printStatistics());
+    }//GEN-LAST:event_btnRefreshStatsActionPerformed
+
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        JFileChooser JFileChooser = new JFileChooser();
+        JFileChooser.showSaveDialog(this);
+        File saveFile = JFileChooser.getSelectedFile();
+        if (saveFile != null) {
+            saveFile = new File(saveFile.toString() + ".csv");
+            IOSystem.generateReport(saveFile, StudentManagement.getStudentList());
+            IOSystem.openFile(saveFile.toString());
+        }
+    }//GEN-LAST:event_btnExportActionPerformed
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Static Student Menu">
@@ -407,21 +524,23 @@ public class StudentMainMenu extends javax.swing.JFrame {
         });
     }
     // </editor-fold>
-    
-//    public static void main(String[] args) {
-//        StudentManagement.initializeStudents();
-//        studentMenu(new Object[] {"1", "Testtesttesteteststestet"});
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExport;
     private javax.swing.ButtonGroup btnGroupSearch;
-    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnRefreshDisplay;
+    private javax.swing.JButton btnRefreshStats;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDeveloper;
     private javax.swing.JLabel lblMessages;
     private javax.swing.JLabel lblText;
+    private javax.swing.JLabel lblTextExport;
     private javax.swing.JLabel lblTitleDisplay;
+    private javax.swing.JLabel lblTitleExport;
     private javax.swing.JLabel lblTitleSearch;
+    private javax.swing.JLabel lblTitleStats;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JPanel panelDisplay;
     private javax.swing.JPanel panelDisplayInfo;
@@ -439,5 +558,6 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabpaneMain;
     private javax.swing.JTextPane txtMessages;
     private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextPane txtStats;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,6 +24,6 @@ public class InternationalStudent extends Student {
     
     public String getStudentInformation() {
         String studentPass = this.studentPass ? "do not need" : "need";
-        return "I am an International Student. I " + studentPass + " a student pass for internship.";
+        return "I am an International Student. I " + studentPass + " a pass for internship.";
     }
 }
