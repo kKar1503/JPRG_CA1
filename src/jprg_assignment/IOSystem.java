@@ -219,4 +219,22 @@ public class IOSystem {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    public static void exportLog(File file, String logString) {
+        try {
+            // Setting up PrintWriter for creating log file
+            FileWriter fw = new FileWriter(file, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            
+            pw.print(logString);
+            
+            pw.flush();
+            pw.close();
+            
+            UserActivityLogger.infoLog("Successfully exported search log to " + file.toString());
+        } catch (IOException ioe) {
+            UserActivityLogger.errLog("Unable to export Log.", ioe);
+        }
+    }
 }

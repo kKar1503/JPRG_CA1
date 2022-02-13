@@ -68,7 +68,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblTitleExport = new javax.swing.JLabel();
         lblTextExport = new javax.swing.JLabel();
-        btnExport = new javax.swing.JButton();
+        btnExportStats = new javax.swing.JButton();
         panelSearchStudent = new javax.swing.JPanel();
         lblTitleSearch = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
@@ -77,8 +77,9 @@ public class StudentMainMenu extends javax.swing.JFrame {
         radioModule = new javax.swing.JRadioButton();
         panelSearchInfo = new javax.swing.JPanel();
         scrollpaneMessages = new javax.swing.JScrollPane();
-        txtMessages = new javax.swing.JTextPane();
+        txtSearchLog = new javax.swing.JTextPane();
         lblMessages = new javax.swing.JLabel();
+        btnExportLog = new javax.swing.JButton();
         panelSettings = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -155,7 +156,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(lblDeveloper)
                 .addContainerGap())
         );
@@ -221,7 +222,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
             .addGroup(panelDisplayLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitleDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(lblTitleDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addGroup(panelDisplayLayout.createSequentialGroup()
                         .addComponent(btnRefreshDisplay)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -249,6 +250,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
             }
         });
 
+        txtStats.setEditable(false);
         txtStats.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtStats.setText(StudentManagement.printStatistics());
         txtStats.setToolTipText(null);
@@ -265,14 +267,14 @@ public class StudentMainMenu extends javax.swing.JFrame {
         lblTextExport.setToolTipText(null);
         lblTextExport.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        btnExport.setBackground(java.awt.Color.blue);
-        btnExport.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnExport.setForeground(new java.awt.Color(255, 255, 255));
-        btnExport.setText("EXPORT");
-        btnExport.setToolTipText(null);
-        btnExport.addActionListener(new java.awt.event.ActionListener() {
+        btnExportStats.setBackground(java.awt.Color.blue);
+        btnExportStats.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnExportStats.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportStats.setText("EXPORT");
+        btnExportStats.setToolTipText(null);
+        btnExportStats.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportActionPerformed(evt);
+                btnExportStatsActionPerformed(evt);
             }
         });
 
@@ -289,7 +291,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblTextExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
-                        .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnExportStats, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(62, 62, 62))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -300,7 +302,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTextExport, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExportStats, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -327,7 +329,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
                 .addGroup(panelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRefreshStats)
                     .addComponent(lblTitleStats, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -370,20 +372,36 @@ public class StudentMainMenu extends javax.swing.JFrame {
 
         panelSearchInfo.setToolTipText(null);
 
-        txtMessages.setToolTipText(null);
-        scrollpaneMessages.setViewportView(txtMessages);
+        txtSearchLog.setEditable(false);
+        txtSearchLog.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium venenatis luctus. Donec tristique nunc non diam bibendum rutrum. Suspendisse eu eros aliquet, vehicula orci ac, eleifend turpis. Nunc et sem lobortis, venenatis lacus et, fringilla lacus. Quisque lobortis, dui eget malesuada egestas, augue orci pellentesque ante, ac sagittis elit lorem id ex. Nullam eget interdum lorem, non pharetra tortor. Phasellus venenatis posuere mauris, quis semper urna. Mauris ullamcorper mi erat, ac aliquam eros ullamcorper in. Vivamus eu ipsum mauris. Aenean vestibulum vulputate posuere.\n\nNunc et aliquet odio. Nulla ac nulla nec nisl molestie accumsan nec nec velit. Nam efficitur nunc non erat finibus semper. Donec bibendum id urna ut efficitur. Nunc non tincidunt eros. Proin eget ligula et felis luctus fringilla. Etiam pharetra dignissim placerat. Integer id risus quis eros dignissim dictum.");
+        txtSearchLog.setToolTipText(null);
+        scrollpaneMessages.setViewportView(txtSearchLog);
 
         lblMessages.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblMessages.setText("Search Results:");
+        lblMessages.setText("Search Log Messages:");
         lblMessages.setToolTipText(null);
+
+        btnExportLog.setBackground(java.awt.Color.blue);
+        btnExportLog.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnExportLog.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportLog.setText("EXPORT LOG");
+        btnExportLog.setToolTipText(null);
+        btnExportLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportLogActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSearchInfoLayout = new javax.swing.GroupLayout(panelSearchInfo);
         panelSearchInfo.setLayout(panelSearchInfoLayout);
         panelSearchInfoLayout.setHorizontalGroup(
             panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSearchInfoLayout.createSequentialGroup()
-                .addGroup(panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelSearchInfoLayout.createSequentialGroup()
+                        .addComponent(lblMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExportLog))
                     .addComponent(scrollpaneMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -391,7 +409,9 @@ public class StudentMainMenu extends javax.swing.JFrame {
             panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSearchInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelSearchInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMessages, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExportLog))
                 .addGap(18, 18, 18)
                 .addComponent(scrollpaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))
         );
@@ -446,7 +466,7 @@ public class StudentMainMenu extends javax.swing.JFrame {
         );
         panelSettingsLayout.setVerticalGroup(
             panelSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 578, Short.MAX_VALUE)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
 
         tabpaneMain.addTab("Profile Settings", panelSettings);
@@ -478,8 +498,10 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private void btnRefreshStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshStatsActionPerformed
         txtStats.setText(StudentManagement.printStatistics());
     }//GEN-LAST:event_btnRefreshStatsActionPerformed
-
-    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Stats Export Button">
+    private void btnExportStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportStatsActionPerformed
         JFileChooser JFileChooser = new JFileChooser();
         JFileChooser.showSaveDialog(this);
         File saveFile = JFileChooser.getSelectedFile();
@@ -488,7 +510,20 @@ public class StudentMainMenu extends javax.swing.JFrame {
             IOSystem.generateReport(saveFile, StudentManagement.getStudentList());
             IOSystem.openFile(saveFile.toString());
         }
-    }//GEN-LAST:event_btnExportActionPerformed
+    }//GEN-LAST:event_btnExportStatsActionPerformed
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Search Log Export Button">
+    private void btnExportLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportLogActionPerformed
+        JFileChooser JFileChooser = new JFileChooser();
+        JFileChooser.showSaveDialog(this);
+        File saveFile = JFileChooser.getSelectedFile();
+        if (saveFile != null) {
+            saveFile = new File(saveFile.toString() + ".log");
+            IOSystem.exportLog(saveFile, txtSearchLog.getText());
+            IOSystem.openFile(saveFile.toString());
+        }
+    }//GEN-LAST:event_btnExportLogActionPerformed
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Static Student Menu">
@@ -526,7 +561,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
     // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExport;
+    private javax.swing.JButton btnExportLog;
+    private javax.swing.JButton btnExportStats;
     private javax.swing.ButtonGroup btnGroupSearch;
     private javax.swing.JButton btnRefreshDisplay;
     private javax.swing.JButton btnRefreshStats;
@@ -556,8 +592,8 @@ public class StudentMainMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollpaneTable;
     private javax.swing.JTable tableDisplayInfo;
     private javax.swing.JTabbedPane tabpaneMain;
-    private javax.swing.JTextPane txtMessages;
     private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextPane txtSearchLog;
     private javax.swing.JTextPane txtStats;
     // End of variables declaration//GEN-END:variables
 }
